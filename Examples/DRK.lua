@@ -26,8 +26,7 @@ function macro_setup()
     -- Set the current macro book & page according to your subjob
     -- Ex: set_macro(2, 1) would set macro book 2 & page 1
 
-    -- Modify me!
-    if player.sub_job == "DNC" then
+    if player.sub_job == "WAR" then
         set_macro(1, 1)
     elseif player.sub_job == "SAM" then
         set_macro(2, 1)
@@ -44,7 +43,24 @@ function get_sets()
     -- Base sets that flow through all other sets
     --
     -- A General set of gear you will idle in (before and after battle)
-    sets.Idle = {}
+    sets.Idle = {
+        main="Darksteel Falx +1",
+        sub="Pole Grip",
+        range="Tracker's Bow +1",
+        ammo="Bronze Bolt",
+        head="Zeal Cap +1",
+        body="Haubergeon +1",
+        hands="Luisant Moufles",
+        legs="Luisant Brayettes",
+        feet="Bounding Boots",
+        neck="Chivalrous chain",
+        waist="Speed Belt",
+        left_ear="Assault Earring",
+        right_ear="Spike Earring",
+        left_ring="Victory Ring +1",
+        right_ring="Victory Ring +1",
+        back="Jaguar Mantle",
+    }
     IDLE_SET = sets.Idle
 
     -- A set of gear to engage the monster in
@@ -55,7 +71,9 @@ function get_sets()
     -- An alternate base set that overrides Engaged and Idle after the command:
     -- `//gs c alternate` has been run
     -- `//gs c primary` will set it back to normal
-    sets.ALTERNATE = {}
+    sets.ALTERNATE = {
+        main="Vassago's Scythe",
+    }
 
 
     --===================================================================================--
@@ -67,7 +85,13 @@ function get_sets()
     -- around in.  Equipped via: //gs c equip AF2
 
     -- Atrifact set
-    sets.AF = {}
+    sets.AF = {
+        head="Chaos burgeonet",
+        body="Chaos Cuirass",
+        hands="Chaos Gauntlets",
+        legs="Chaos Flanchard",
+        feet="Chaos Sollerets",
+    }
 
     -- Relic Set
     sets.AF2 = {}
@@ -137,10 +161,9 @@ function get_sets()
     ABILITY = sets.midcast.Ability
 
     -- Specific abilities:
-    sets.midcast.Provoke = set_combine(ABILITY, {})
-
-    -- Corsair Quickdraw (will swap for all versions of Quickdraw)
-    sets.midcast.Quickdraw = {}
+    sets.midcast["Souleater"] = set_combine(ABILITY, {body="Gloom Breastplate",})
+    sets.midcast["Souleater"] = set_combine(ABILITY, {head="Chaos burgeonet",})
+    sets.midcast["Weapon Bash"] = set_combine(ABILITY, {hands="Chaos Gauntlets",})
 
 
     ---------------------------------------------------------------------------------------
@@ -153,7 +176,12 @@ function get_sets()
     --                                    Weapon Skills                                  --
     ---------------------------------------------------------------------------------------
     -- A General set of weapon skill gear (will swap for all weapon skills)
-    sets.midcast["Weapon Skill"] = set_combine(ENGAGED_SET, {})
+    sets.midcast["Weapon Skill"] = set_combine(ENGAGED_SET, {
+        head="Chaos burgeonet",
+        body="Byrnie +1",
+        waist="Swordbelt +1",
+        hands="Pallas's Bracelets",
+    })
     WEAPON_SKILL = sets.midcast["Weapon Skill"]
 
     -- Specific weapon skills:
@@ -213,7 +241,10 @@ function get_sets()
     --                                   Enfeebling Magic                                --
     ---------------------------------------------------------------------------------------
     -- A General set of enfeebling magic gear (will swap for all enfeebling magic)
-    sets.midcast["Enfeebling Magic"] = set_combine(MAGIC_SET, {})
+    sets.midcast["Enfeebling Magic"] = set_combine(MAGIC_SET, {
+        neck="Enfeebling Torque",
+        body="Chaos cuirass",
+    })
     ENFEEBLING_MAGIC = sets.midcast["Enfeebling Magic"]
 
     -- Specific enfeebling magic:
@@ -235,7 +266,10 @@ function get_sets()
     --                                     Dark Magic                                    --
     ---------------------------------------------------------------------------------------
     -- A General set of dark magic gear (will swap for all dark magic)
-    sets.midcast["Dark Magic"] = set_combine(MAGIC_SET, {})
+    sets.midcast["Dark Magic"] = set_combine(MAGIC_SET, {
+        head="Chaos burgeonet",
+        neck="Dark Torque",
+    })
     DARK_MAGIC = sets.midcast["Dark Magic"]
 
     -- Specific dark magic:

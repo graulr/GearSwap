@@ -26,10 +26,9 @@ function macro_setup()
     -- Set the current macro book & page according to your subjob
     -- Ex: set_macro(2, 1) would set macro book 2 & page 1
 
-    -- Modify me!
-    if player.sub_job == "DNC" then
+    if player.sub_job == "RDM" then
         set_macro(1, 1)
-    elseif player.sub_job == "SAM" then
+    elseif player.sub_job == "SCH" then
         set_macro(2, 1)
     end
 end
@@ -44,7 +43,22 @@ function get_sets()
     -- Base sets that flow through all other sets
     --
     -- A General set of gear you will idle in (before and after battle)
-    sets.Idle = {}
+    sets.Idle = {
+        main="Aquilo's Staff",
+        sub="Bugard Strap +1",
+        head="Wizard's Petasos",
+        body="Cobra Coat",
+        hands="Wizard's Gloves",
+        legs="Seer's Slacks +1",
+        feet="Garrison Boots",
+        neck="Mohbwa Scarf +1",
+        waist="Penitent's Rope",
+        left_ear="Morion Earring +1",
+        right_ear="Morion Earring +1",
+        left_ring="Genius Ring +1",
+        right_ring="Genius Ring +1",
+        back="Black Cape +1",
+    }
     IDLE_SET = sets.Idle
 
     -- A set of gear to engage the monster in
@@ -55,7 +69,9 @@ function get_sets()
     -- An alternate base set that overrides Engaged and Idle after the command:
     -- `//gs c alternate` has been run
     -- `//gs c primary` will set it back to normal
-    sets.ALTERNATE = {}
+    sets.ALTERNATE = {
+        feet="Wizard's Sabots"
+    }
 
 
     --===================================================================================--
@@ -67,7 +83,13 @@ function get_sets()
     -- around in.  Equipped via: //gs c equip AF2
 
     -- Atrifact set
-    sets.AF = {}
+    sets.AF = {
+        head="Wizard's Petasos",
+        body="Wizard's Coat",
+        hands="Wizard's Gloves",
+        legs="Wizard's Tonban",
+        feet="Wizard's Sabots"
+    }
 
     -- Relic Set
     sets.AF2 = {}
@@ -173,24 +195,50 @@ function get_sets()
     --                                   Elemental Magic                                 --
     ---------------------------------------------------------------------------------------
     -- A General set of elemental magic gear (will swap for all elemental magic)
-    sets.midcast["Elemental Magic"] = set_combine(MAGIC_SET, {})
+    sets.midcast["Elemental Magic"] = set_combine(MAGIC_SET, {
+        neck="Elemental Torque",
+        left_ear="Elemental Earring",
+        hands="Wizard's Gloves",
+    })
     ELEMENTAL_MAGIC = sets.midcast["Elemental Magic"]
 
     -- Specific elemental magic:
     -- Note: These sets will swap for I, II, III, IV, V, ga, & ra versions of the spell
-    sets.midcast.Stone = set_combine(ELEMENTAL_MAGIC, {})
-    sets.midcast.Water = set_combine(ELEMENTAL_MAGIC, {})
-    sets.midcast.Aero = set_combine(ELEMENTAL_MAGIC, {})
-    sets.midcast.Fire = set_combine(ELEMENTAL_MAGIC, {})
-    sets.midcast.Blizzard = set_combine(ELEMENTAL_MAGIC, {})
-    sets.midcast.Thunder = set_combine(ELEMENTAL_MAGIC, {})
+    sets.midcast.Stone = set_combine(ELEMENTAL_MAGIC, {
+        main="Terra's Staff",
+    })
+    sets.midcast.Water = set_combine(ELEMENTAL_MAGIC, {
+        main="Neptune's Staff",
+    })
+    sets.midcast.Aero = set_combine(ELEMENTAL_MAGIC, {
+        main="Auster's Staff"
+    })
+    sets.midcast.Fire = set_combine(ELEMENTAL_MAGIC, {
+        main="Vulcan's Staff",
+    })
+    sets.midcast.Blizzard = set_combine(ELEMENTAL_MAGIC, {
+        main="Aquilo's Staff",
+    })
+    sets.midcast.Thunder = set_combine(ELEMENTAL_MAGIC, {
+        main="Jupiter's Staff",
+    })
 
 
     ---------------------------------------------------------------------------------------
     --                                    Healing Magic                                  --
     ---------------------------------------------------------------------------------------
     -- A General set of healing magic gear (will swap for all healing magic)
-    sets.midcast["Healing Magic"] = set_combine(MAGIC_SET, {})
+    sets.midcast["Healing Magic"] = set_combine(MAGIC_SET, {
+        main="Apollo's Staff",
+        head="Wizard's Coat",
+        neck="Healing Torque",
+        hands="Wizard's Gloves",
+        right_ring="Aquamarine Ring",
+        left_ring="Aquamarine Ring",
+        body="Crow jupon",
+        back="Amity Cape",
+        feet="Wizard's Sabots"
+    })
     HEALING_MAGIC = sets.midcast["Healing Magic"]
 
     -- Specific healing magic:
@@ -213,7 +261,10 @@ function get_sets()
     --                                   Enfeebling Magic                                --
     ---------------------------------------------------------------------------------------
     -- A General set of enfeebling magic gear (will swap for all enfeebling magic)
-    sets.midcast["Enfeebling Magic"] = set_combine(MAGIC_SET, {})
+    sets.midcast["Enfeebling Magic"] = set_combine(MAGIC_SET, {
+        neck="Enfeebling Torque",
+        head="Wizard's Coat",
+    })
     ENFEEBLING_MAGIC = sets.midcast["Enfeebling Magic"]
 
     -- Specific enfeebling magic:
@@ -235,7 +286,10 @@ function get_sets()
     --                                     Dark Magic                                    --
     ---------------------------------------------------------------------------------------
     -- A General set of dark magic gear (will swap for all dark magic)
-    sets.midcast["Dark Magic"] = set_combine(MAGIC_SET, {})
+    sets.midcast["Dark Magic"] = set_combine(MAGIC_SET, {
+        neck="Dark Torque",
+        legs="Wizard's Tonban",
+    })
     DARK_MAGIC = sets.midcast["Dark Magic"]
 
     -- Specific dark magic:
@@ -312,7 +366,15 @@ function get_sets()
     --                                       Resting                                     --
     ---------------------------------------------------------------------------------------
     -- MP+ / HP+ resting gear
-    sets.aftercast.Resting = set_combine(IDLE_SET, {})
+    sets.aftercast.Resting = set_combine(IDLE_SET, {
+        main="Pluto's Staff",
+        body="Salutary Robe +1",
+        waist="Qiqirn Sash +1",
+        neck="Grandiose Chain",
+        head="Cobra Hat",
+        right_ear="Warlock's Earring",
+        legs="Baron's Slops",
+    })
 
 
     ------------------------------------ End of gearsets ----------------------------------
