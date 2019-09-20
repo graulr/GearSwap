@@ -73,6 +73,7 @@ function get_sets()
     sets.precast.Cure = set_combine(sets.precast.FastCast, {})
 
     -- Enhancing magic *cast time reduction* gear only
+    -- Use sets.midcast["Enhancing Magic"] for everything else
     sets.precast["Enhancing Magic"] = set_combine(sets.precast.FastCast, {})
 
 
@@ -447,7 +448,7 @@ function status_change(new, old)
         equip_with_alternate(sets.aftercast.Resting)
     elseif new == "Engaged" then
         equip_with_alternate(sets.Engaged)
-    elseif T{"Idle"}:contains(new) then
+    elseif new == "Idle" then
         equip_with_alternate(sets.Idle)
     end
 end
