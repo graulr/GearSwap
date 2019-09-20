@@ -63,10 +63,10 @@ function get_sets()
     --                                     Cosmetic Sets                                 --
     --                                                                                   --
     --===================================================================================--
-    -- Sets you probably won't be using for content, but are fun to walk
-    -- around in.  Equipped via: //gs c equip AF2
+    -- Sets you might not be using for content but are fun to walk
+    -- around in. Equipped via: //gs c equip AF2
 
-    -- Atrifact set
+    -- Artifact set
     sets.AF = {}
 
     -- Relic Set
@@ -81,7 +81,7 @@ function get_sets()
     --                                      Craft Sets                                   --
     --                                                                                   --
     --===================================================================================--
-    -- Sets for crafting, equipped in-game via: //gs c equip Alchemy
+    -- Sets for crafting. Equipped via: //gs c equip Alchemy
 
     sets.Fishing = {}
 
@@ -201,7 +201,7 @@ function get_sets()
     ---------------------------------------------------------------------------------------
     --                                   Enhancing Magic                                 --
     ---------------------------------------------------------------------------------------
-    -- A General set of enchancing magic gear (will swap for all enhancing magic)
+    -- A General set of enhancing magic gear (will swap for all enhancing magic)
     sets.midcast["Enhancing Magic"] = set_combine(MAGIC_SET, {})
     ENHANCING_MAGIC = sets.midcast["Enhancing Magic"]
 
@@ -335,7 +335,7 @@ keep_gear_until_next_event = false
 --=================================================================================================--
 --=================================================================================================--
 --=================================================================================================--
---============================= Don't alter any code below this line ==============================--
+--============================= Alter code below at your own risk! ================================--
 --=================================================================================================--
 --=================================================================================================--
 -----------------------------------------------------------------------------------------------------
