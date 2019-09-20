@@ -26,7 +26,7 @@ function macro_setup()
     -- Set the current macro book & page according to your subjob
     -- Ex: set_macro(2, 1) would set macro book 2 & page 1
 
-    -- Modify me!
+    -- Modify me!  Set your 3 letter subjob(s) and corresponding macro books
     if player.sub_job == "DNC" then
         set_macro(1, 1)
     elseif player.sub_job == "SAM" then
