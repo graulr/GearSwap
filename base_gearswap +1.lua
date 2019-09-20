@@ -60,52 +60,6 @@ function get_sets()
 
     --===================================================================================--
     --                                                                                   --
-    --                                     Cosmetic Sets                                 --
-    --                                                                                   --
-    --===================================================================================--
-    -- Sets you might not be using for content but are fun to walk
-    -- around in. Equipped via: //gs c equip AF2
-
-    -- Artifact set
-    sets.AF = {}
-
-    -- Relic Set
-    sets.AF2 = {}
-
-    -- Empyrean Set
-    sets.AF3 = {}
-
-
-    --===================================================================================--
-    --                                                                                   --
-    --                                      Craft Sets                                   --
-    --                                                                                   --
-    --===================================================================================--
-    -- Sets for crafting. Equipped via: //gs c equip Alchemy
-
-    sets.Fishing = {}
-
-    sets.Woodworking = {}
-
-    sets.Smithing = {}
-
-    sets.Goldsmithing = {}
-
-    sets.Clothcraft = {}
-
-    sets.Leathercraft = {}
-
-    sets.Bonecraft = {}
-
-    sets.Alchemy = {}
-
-    sets.Cooking = {}
-
-    sets.Synergy = {}
-
-
-    --===================================================================================--
-    --                                                                                   --
     --                                        Precast                                    --
     --                                                                                   --
     --===================================================================================--
@@ -114,10 +68,11 @@ function get_sets()
     -- Fast cast gear
     sets.precast.FastCast = {}
 
-    -- Cure spell cast time reduction gear only! Use midcast for everything else
+    -- Cure spell *cast time reduction* gear only
+    -- Use sets.midcast.Cure for everything else
     sets.precast.Cure = set_combine(sets.precast.FastCast, {})
 
-    -- Enhancing magic spell gear
+    -- Enhancing magic *cast time reduction* gear only
     sets.precast["Enhancing Magic"] = set_combine(sets.precast.FastCast, {})
 
 
@@ -313,6 +268,52 @@ function get_sets()
     ---------------------------------------------------------------------------------------
     -- MP+ / HP+ resting gear
     sets.aftercast.Resting = set_combine(IDLE_SET, {})
+
+
+    --===================================================================================--
+    --                                                                                   --
+    --                                     Cosmetic Sets                                 --
+    --                                                                                   --
+    --===================================================================================--
+    -- Sets you might not be using for content but are fun to walk
+    -- around in. Equipped via: //gs c equip AF2
+
+    -- Artifact set
+    sets.AF = {}
+
+    -- Relic Set
+    sets.AF2 = {}
+
+    -- Empyrean Set
+    sets.AF3 = {}
+
+
+    --===================================================================================--
+    --                                                                                   --
+    --                                      Craft Sets                                   --
+    --                                                                                   --
+    --===================================================================================--
+    -- Sets for crafting. Equipped via: //gs c equip Alchemy
+
+    sets.Fishing = {}
+
+    sets.Woodworking = {}
+
+    sets.Smithing = {}
+
+    sets.Goldsmithing = {}
+
+    sets.Clothcraft = {}
+
+    sets.Leathercraft = {}
+
+    sets.Bonecraft = {}
+
+    sets.Alchemy = {}
+
+    sets.Cooking = {}
+
+    sets.Synergy = {}
 
 
     ------------------------------------ End of gearsets ----------------------------------
