@@ -88,7 +88,7 @@ function get_sets()
     ---------------------------------------------------------------------------------------
     --                                     Job Abilities                                 --
     ---------------------------------------------------------------------------------------
-    --- A General set of ability gear
+    --- A General set of ability gear (will swap for all abilities)
     sets.midcast.Ability = set_combine(ENGAGED_SET, {})
     ABILITY = sets.midcast.Ability
 
