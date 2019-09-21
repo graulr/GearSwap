@@ -26,12 +26,11 @@ function macro_setup()
     -- Set the current macro book & page according to your subjob
     -- Ex: set_macro(2, 1) would set macro book 2 & page 1
 
+    -- Modify me!  Set your 3 letter subjob(s) and corresponding macro books
     if player.sub_job == "DNC" then
         set_macro(1, 1)
-    elseif player.sub_job == "NIN" then
+    elseif player.sub_job == "SAM" then
         set_macro(2, 1)
-    elseif player.sub_job == "RNG" then
-        set_macro(3, 1)
     end
 end
 
@@ -45,43 +44,18 @@ function get_sets()
     -- Base sets that flow through all other sets
     --
     -- A General set of gear you will idle in (before and after battle)
-    sets.Idle = {
-        main="Mailbreaker +1",
-        sub="Mailbreaker +1",
-        range="Seadog Gun +1",
-        ammo="Iron Bullet",
-        head="Corsair's Tricorne",
-        body="Scp. Harness +1",
-        hands="Corsair's Gants",
-        legs="Jaridah Salvars",
-        feet="Bounding Boots",
-        neck="Peacock Amulet",
-        waist="Swordbelt +1",
-        left_ear="Spike Earring",
-        right_ear="Spike Earring",
-        left_ring="Victory Ring",
-        right_ring="Victory Ring",
-        back="Nomad's Mantle +1",
-    }
+    sets.Idle = {}
     IDLE_SET = sets.Idle
 
     -- A set of gear to engage the monster in
     -- If weapons differ from `sets.Idle` TP will be lost after each fight
-    sets.Engaged = set_combine(IDLE_SET, {
-        hands="Battle Gloves",
-        head="Empress Hairpin",
-        left_ear="Spike Earring",
-        right_ear="Spike Earring",
-    })
+    sets.Engaged = set_combine(IDLE_SET, {})
     ENGAGED_SET = sets.Engaged
 
     -- An alternate base set that overrides Engaged and Idle after the command:
     -- `//gs c alternate` has been run
     -- `//gs c primary` will set it back to normal
-    sets.ALTERNATE = {
-        main="Archer's Knife",
-        sub="Archer's Knife",
-    }
+    sets.ALTERNATE = {}
 
 
     --===================================================================================--
@@ -128,17 +102,7 @@ function get_sets()
     ---------------------------------------------------------------------------------------
     --                                    Ranged Attack                                  --
     ---------------------------------------------------------------------------------------
-    sets.midcast["Ranged Attack"] = set_combine(ENGAGED_SET, {
-        head="Corsair's Tricorne",
-        hands="Noct Gloves",
-        body="Corsair's Frac",
-        left_ear="Drone Earring",
-        right_ear="Drone Earring",
-        left_ring="Scorpion Ring +1",
-        right_ring="Scorpion Ring +1",
-        waist="Royal Knight's Belt",
-    })
-    RANGED_ATTACK = sets.midcast["Ranged Attack"]
+    sets.midcast["Ranged Attack"] = set_combine(ENGAGED_SET, {})
 
 
     ---------------------------------------------------------------------------------------
@@ -149,10 +113,7 @@ function get_sets()
     WEAPON_SKILL = sets.midcast["Weapon Skill"]
 
     -- Specific weapon skills:
-    sets.midcast["Hot Shot"] = set_combine(WEAPON_SKILL, RANGED_ATTACK)
-    sets.midcast["Split Shot"] = set_combine(WEAPON_SKILL, RANGED_ATTACK)
-    sets.midcast["Sniper Shot"] = set_combine(WEAPON_SKILL, RANGED_ATTACK)
-    sets.midcast["Slug Shot"] = set_combine(WEAPON_SKILL, RANGED_ATTACK)
+    sets.midcast["Fast Blade"] = set_combine(WEAPON_SKILL, {})
 
 
     ---------------------------------------------------------------------------------------
@@ -326,13 +287,7 @@ function get_sets()
     -- around in. Equipped via: //gs c equip AF2
 
     -- Artifact set
-    sets.AF = {
-        head="Corsair's Tricorne",
-        body="Corsair's Frac",
-        hands="Corsair's Gants",
-        legs="Corsair's Culottes",
-        feet="Corsair's Bottes"
-    }
+    sets.AF = {}
 
     -- Relic Set
     sets.AF2 = {}
