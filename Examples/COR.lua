@@ -86,58 +86,6 @@ function get_sets()
 
     --===================================================================================--
     --                                                                                   --
-    --                                     Cosmetic Sets                                 --
-    --                                                                                   --
-    --===================================================================================--
-    -- Sets you probably won't be using for content, but are fun to walk
-    -- around in.  Equipped via: //gs c equip AF2
-
-    -- Atrifact set
-    sets.AF = {
-        head="Corsair's Tricorne",
-        body="Corsair's Frac",
-        hands="Corsair's Gants",
-        legs="Corsair's Culottes",
-        feet="Corsair's Bottes"
-    }
-
-    -- Relic Set
-    sets.AF2 = {}
-
-    -- Empyrean Set
-    sets.AF3 = {}
-
-
-    --===================================================================================--
-    --                                                                                   --
-    --                                      Craft Sets                                   --
-    --                                                                                   --
-    --===================================================================================--
-    -- Sets for crafting, equipped in-game via: //gs c equip Alchemy
-
-    sets.Fishing = {}
-
-    sets.Woodworking = {}
-
-    sets.Smithing = {}
-
-    sets.Goldsmithing = {}
-
-    sets.Clothcraft = {}
-
-    sets.Leathercraft = {}
-
-    sets.Bonecraft = {}
-
-    sets.Alchemy = {}
-
-    sets.Cooking = {}
-
-    sets.Synergy = {}
-
-
-    --===================================================================================--
-    --                                                                                   --
     --                                        Precast                                    --
     --                                                                                   --
     --===================================================================================--
@@ -146,10 +94,12 @@ function get_sets()
     -- Fast cast gear
     sets.precast.FastCast = {}
 
-    -- Cure spell cast time reduction gear only! Use midcast for everything else
+    -- Cure spell *cast time reduction* gear only
+    -- Use sets.midcast.Cure for everything else
     sets.precast.Cure = set_combine(sets.precast.FastCast, {})
 
-    -- Enhancing magic spell gear
+    -- Enhancing magic *cast time reduction* gear only
+    -- Use sets.midcast["Enhancing Magic"] for everything else
     sets.precast["Enhancing Magic"] = set_combine(sets.precast.FastCast, {})
 
 
@@ -188,17 +138,21 @@ function get_sets()
         right_ring="Scorpion Ring +1",
         waist="Royal Knight's Belt",
     })
+    RANGED_ATTACK = sets.midcast["Ranged Attack"]
 
 
     ---------------------------------------------------------------------------------------
     --                                    Weapon Skills                                  --
     ---------------------------------------------------------------------------------------
     -- A General set of weapon skill gear (will swap for all weapon skills)
-    sets.midcast["Weapon Skill"] = set_combine(ENGAGED_SET, RANGED_ATTACK)
+    sets.midcast["Weapon Skill"] = set_combine(ENGAGED_SET, {})
     WEAPON_SKILL = sets.midcast["Weapon Skill"]
 
     -- Specific weapon skills:
-    sets.midcast["Fast Blade"] = set_combine(WEAPON_SKILL, {})
+    sets.midcast["Hot Shot"] = set_combine(WEAPON_SKILL, RANGED_ATTACK)
+    sets.midcast["Split Shot"] = set_combine(WEAPON_SKILL, RANGED_ATTACK)
+    sets.midcast["Sniper Shot"] = set_combine(WEAPON_SKILL, RANGED_ATTACK)
+    sets.midcast["Slug Shot"] = set_combine(WEAPON_SKILL, RANGED_ATTACK)
 
 
     ---------------------------------------------------------------------------------------
@@ -242,7 +196,7 @@ function get_sets()
     ---------------------------------------------------------------------------------------
     --                                   Enhancing Magic                                 --
     ---------------------------------------------------------------------------------------
-    -- A General set of enchancing magic gear (will swap for all enhancing magic)
+    -- A General set of enhancing magic gear (will swap for all enhancing magic)
     sets.midcast["Enhancing Magic"] = set_combine(MAGIC_SET, {})
     ENHANCING_MAGIC = sets.midcast["Enhancing Magic"]
 
@@ -314,6 +268,13 @@ function get_sets()
 
 
     ---------------------------------------------------------------------------------------
+    --                                       Ninjitsu                                    --
+    ---------------------------------------------------------------------------------------
+    -- A General set of ninjitsu gear (will swap for all ninjitsu)
+    sets.midcast.Ninjitsu = set_combine(MAGIC_SET, {})
+
+
+    ---------------------------------------------------------------------------------------
     --                                        Songs                                      --
     ---------------------------------------------------------------------------------------
     -- A general set of song gear (will swap for all songs)
@@ -356,6 +317,58 @@ function get_sets()
     sets.aftercast.Resting = set_combine(IDLE_SET, {})
 
 
+    --===================================================================================--
+    --                                                                                   --
+    --                                     Cosmetic Sets                                 --
+    --                                                                                   --
+    --===================================================================================--
+    -- Sets you might not be using for content but are fun to walk
+    -- around in. Equipped via: //gs c equip AF2
+
+    -- Artifact set
+    sets.AF = {
+        head="Corsair's Tricorne",
+        body="Corsair's Frac",
+        hands="Corsair's Gants",
+        legs="Corsair's Culottes",
+        feet="Corsair's Bottes"
+    }
+
+    -- Relic Set
+    sets.AF2 = {}
+
+    -- Empyrean Set
+    sets.AF3 = {}
+
+
+    --===================================================================================--
+    --                                                                                   --
+    --                                      Craft Sets                                   --
+    --                                                                                   --
+    --===================================================================================--
+    -- Sets for crafting. Equipped via: //gs c equip Alchemy
+
+    sets.Fishing = {}
+
+    sets.Woodworking = {}
+
+    sets.Smithing = {}
+
+    sets.Goldsmithing = {}
+
+    sets.Clothcraft = {}
+
+    sets.Leathercraft = {}
+
+    sets.Bonecraft = {}
+
+    sets.Alchemy = {}
+
+    sets.Cooking = {}
+
+    sets.Synergy = {}
+
+
     ------------------------------------ End of gearsets ----------------------------------
     -- Sets macros on file load
     macro_setup()
@@ -376,7 +389,7 @@ keep_gear_until_next_event = false
 --=================================================================================================--
 --=================================================================================================--
 --=================================================================================================--
---============================= Don't alter any code below this line ==============================--
+--============================= Alter code below at your own risk! ================================--
 --=================================================================================================--
 --=================================================================================================--
 -----------------------------------------------------------------------------------------------------
@@ -487,7 +500,7 @@ function status_change(new, old)
         equip_with_alternate(sets.aftercast.Resting)
     elseif new == "Engaged" then
         equip_with_alternate(sets.Engaged)
-    elseif T{"Idle"}:contains(new) then
+    elseif new == "Idle" then
         equip_with_alternate(sets.Idle)
     end
 end
@@ -644,6 +657,10 @@ function get_gear_for_spell(spell, spell_name)
         -- Geomancy
         elseif spell_skill == "Geomancy" then
             current_set = sets.midcast.Geomancy
+
+        -- Ninjitsu
+        elseif spell_skill == "Ninjitsu" then
+            current_set = sets.midcast.Ninjitsu
 
         -- Elemental Magic
         elseif spell_skill == "Elemental Magic" then
