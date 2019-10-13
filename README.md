@@ -48,7 +48,7 @@
 <br/>
 
 ## 8. Associate `.lua` files with Sublime Text editor 
-#### Do not use Microsoft Word or other rich text editors to edit .lua files
+#### **Do not** use Microsoft Word or other rich text editors to edit .lua files
 <p align="center">
     <img src="http://g.recordit.co/eoeNyHbwMi.gif">
 </p>
@@ -61,7 +61,6 @@
 </p>
 <br/>
 
-
 ## 10. Run `//gs export` in game
 <p align="center">
     <img src="http://g.recordit.co/Rc8JB8mm5T.gif">
@@ -71,5 +70,32 @@
 ## 11. Open up `windower/addons/gearswap/data/` in Sublime Text editor
 <p align="center">
     <img src="http://g.recordit.co/eN4AM7OMyN.gif">
+</p>
+<br/>
+
+## 12. Copy the set you exported, paste it into the Idle set within your new gearswap file, and **save**
+<p align="center">
+    <img src="https://i.imgur.com/svKztVj.gif">
+</p>
+<br/>
+
+## 13. Run `//gs load graulr-cor.lua` in game
+#### After running this command, this file will be automatically loaded whenever you switch to this job in game.
+<p align="center">
+    <img src="TODO">
+</p>
+<br/>
+
+## 14. Setup macros in your new geraswap file
+#### Whenever you switch jobs/subjobs, your macro books will automatically be set by default
+<p align="center">
+    <img src="TODO">
+</p>
+<br/>
+
+## 15. Run `//gs reload` in game
+#### Whenever you update a gearswap file while playing the game, you need to run this reload command to get your latest changes.
+<p align="center">
+    <img src="TODO">
 </p>
 <br/>
