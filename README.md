@@ -57,14 +57,14 @@
 ## 9. In FFXI equip your idle set
 #### A base set of gear that you typically stand around in
 <p align="center">
-    <img src="http://g.recordit.co/87iIVle72V.gif">
+    <img src="https://i.imgur.com/4LIjJxQ.gif">
 </p>
 <br/>
 
 
 ## 10. Run `//gs export` in game
 <p align="center">
-    <img src="http://g.recordit.co/ykGnlLI54t.gif">
+    <img src="http://g.recordit.co/Rc8JB8mm5T.gif">
 </p>
 <br/>
 
