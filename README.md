@@ -82,7 +82,7 @@
 ## 13. Run `//gs load charactername-job.lua` in game
 #### After running this command, this file will be automatically loaded whenever you switch to this job in game.
 <p align="center">
-    <img src="TODO">
+    <img src="https://i.imgur.com/9Sh0kt8.gif">
 </p>
 <br/>
 
