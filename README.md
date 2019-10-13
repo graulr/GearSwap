@@ -56,11 +56,16 @@
 
 ## 9. In FFXI equip your idle set
 #### A base set of gear that you typically stand around in
-IMG TODO
+<p align="center">
+    <img src="http://g.recordit.co/87iIVle72V.gif">
+</p>
 <br/>
 
+
 ## 10. Run `//gs export` in game
-IMG TODO
+<p align="center">
+    <img src="http://g.recordit.co/ykGnlLI54t.gif">
+</p>
 <br/>
 
 ## 11. Open up `windower/addons/gearswap/data/` in Sublime Text editor
