@@ -40,7 +40,7 @@
 <br/>
 
 ## 7. Create a duplicate `base_gearswap +1.lua`
-#### Name the duplicate in the following format: `CharacterName-JOB.lua`
+#### Name the duplicate in the following format: `charactername-job.lua`
 #### Example: `graulr-cor.lua` if my character's name is **Graulr** and my job is **Corsair**
 <p align="center">
     <img src="http://g.recordit.co/QKzG5KPXc1.gif">
@@ -79,7 +79,7 @@
 </p>
 <br/>
 
-## 13. Run `//gs load graulr-cor.lua` in game
+## 13. Run `//gs load charactername-job.lua` in game
 #### After running this command, this file will be automatically loaded whenever you switch to this job in game.
 <p align="center">
     <img src="TODO">
