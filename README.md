@@ -86,7 +86,7 @@
 </p>
 <br/>
 
-## 14. Setup macros in your new geraswap file
+## 14. Setup macros in your new gearswap file
 #### Whenever you switch jobs/subjobs, your macro books will automatically be set by default
 <p align="center">
     <img src="TODO">
