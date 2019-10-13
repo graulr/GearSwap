@@ -10,10 +10,14 @@
 </p>
 <br/>
 
-## 2. Download [Sublime Text](https://www.sublimetext.com/3) and install
+## 2. Download [Sublime Text](https://www.sublimetext.com/3), install, and pin to task bar
+<p align="center">
+    <img src="http://g.recordit.co/0KlKSu6GDs.gif">
+</p>
 <br/>
 
 ## 3. Download the <a href="https://github.com/graulr/GearSwap/releases">latest release</a> and unzip
+#### Take note where you unzip the folder
 <br/>
 
 ## 4. Navigate to `windower/addons/gearswap/data/`
@@ -23,22 +27,31 @@
 <br/>
 
 ## 5. Set `windower/addons/gearswap/data/` in quick access
-IMG TODO
-##### You will be going here often and this makes it much easier to find
+#### You will be going here often and this will make it much easier to find
+<p align="center">
+    <img src="http://g.recordit.co/sQe9Cplwj7.gif">
+</p>
 <br/>
 
 ## 6. Copy `base_gearswap +1.lua` into `windower/addons/gearswap/data/`
-IMG TODO
+<p align="center">
+    <img src="http://g.recordit.co/cIbiaYDCtk.gif">
+</p>
 <br/>
 
 ## 7. Create a duplicate `base_gearswap +1.lua`
 #### Name the duplicate in the following format: `CharacterName-JOB.lua`
-#### Example: `Graulr-COR.lua` if my character's name is **Graulr** and my job is **Corsair**
-IMG TODO
+#### Example: `graulr-cor.lua` if my character's name is **Graulr** and my job is **Corsair**
+<p align="center">
+    <img src="http://g.recordit.co/QKzG5KPXc1.gif">
+</p>
 <br/>
 
 ## 8. Associate `.lua` files with Sublime Text editor 
-IMG TODO
+#### Do not use Microsoft Word or other rich text editors to edit .lua files
+<p align="center">
+    <img src="http://g.recordit.co/eoeNyHbwMi.gif">
+</p>
 <br/>
 
 ## 9. In FFXI equip your idle set
@@ -51,5 +64,7 @@ IMG TODO
 <br/>
 
 ## 11. Open up `windower/addons/gearswap/data/` in Sublime Text editor
-IMG TODO
+<p align="center">
+    <img src="http://g.recordit.co/eN4AM7OMyN.gif">
+</p>
 <br/>
