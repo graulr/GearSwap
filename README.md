@@ -73,7 +73,8 @@
 </p>
 <br/>
 
-## 12. Copy the set you exported, paste it into the Idle set within your new gearswap file, and **save**
+## 12. Copy the set you exported, paste it into sets.Idle within your new gearswap file and **save**
+#### Search for `sets.Idle =` using the find function (ctrl + f) in Sublime
 <p align="center">
     <img src="https://i.imgur.com/svKztVj.gif">
 </p>
@@ -92,7 +93,7 @@
     <img src="https://i.imgur.com/ldfn3yK.gif">
 </p>
 <p align="center">
-    <img src="http://g.recordit.co/5O7STfxGbk.gif">
+    <img src="http://g.recordit.co/wW6zLMKn5m.gif">
 </p>
 <br/>
 
@@ -104,4 +105,4 @@
 <br/>
 
 ## 16. Explore the contents of your new gearswap file and add your gear to the existing sets.
-#### View [BaseGearSwap/examples](https://github.com/graulr/GearSwap/tree/master/Examples) to see examples on how to add more gear.
+#### View [BaseGearSwap/examples](https://github.com/graulr/BaseGearSwap/tree/master/Examples) to see examples on how to add more gear.
