@@ -99,6 +99,9 @@
 ## 15. Run `//gs reload` in game
 #### Whenever you update a gearswap file **while playing the game**, you need to run the reload command to get your latest changes.
 <p align="center">
-    <img src="https://i.imgur.com/83xkiom.gif">
+    <img src="https://i.imgur.com/S32RIWc.gif">
 </p>
 <br/>
+
+## 16. Explore the contents of your new gearswap file and add your gear to the existing sets.
+#### View [GearSwap/examples](https://github.com/graulr/GearSwap/tree/master/Examples) to see examples on how to add more gear.
