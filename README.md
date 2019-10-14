@@ -1,5 +1,5 @@
 ## Want the benefits of gearswap without having to learn how to program?
-### You've come to the right place. <br> Create a fully functional gearswap file in under 10 minutes.
+### You've come to the right place. <br> Create a fully functional gearswap file in 15 minutes.
 ###### This guide assumes you have downloaded and installed [Windower](http://windower.net/)
 <br/>
 
