@@ -104,5 +104,6 @@
 </p>
 <br/>
 
-## 16. Explore the contents of your new gearswap file and add your gear to the existing sets.
-#### View [BaseGearSwap/examples](https://github.com/graulr/BaseGearSwap/tree/master/Examples) to see examples on how to add more gear.
+## 16. Explore the contents of your new gearswap file and add your gear wherever applicable
+#### Try out `//gs help` and `//gs c help` in game to learn more commands.
+#### View [BaseGearSwap/examples](https://github.com/graulr/BaseGearSwap/tree/master/Examples) to see examples on where and how to add more gear.
