@@ -89,13 +89,16 @@
 ## 14. Setup macros in your new gearswap file
 #### Whenever you switch jobs/subjobs, your macro books will automatically be set by default
 <p align="center">
-    <img src="TODO">
+    <img src="https://i.imgur.com/ldfn3yK.gif">
+</p>
+<p align="center">
+    <img src="http://g.recordit.co/5O7STfxGbk.gif">
 </p>
 <br/>
 
 ## 15. Run `//gs reload` in game
-#### Whenever you update a gearswap file while playing the game, you need to run this reload command to get your latest changes.
+#### Whenever you update a gearswap file **while playing the game**, you need to run the reload command to get your latest changes.
 <p align="center">
-    <img src="TODO">
+    <img src="https://i.imgur.com/83xkiom.gif">
 </p>
 <br/>
