@@ -5,16 +5,16 @@ include("organizer-lib")
 --                           G  G  R r   AAAAA  U   U L    R r                           --
 --                           GGGG  R  R A     A UUUUU LLLL R  R                          --
 -------------------------------------------------------------------------------------------
---               How you declare a set for a specific ability or spell:                  --
+-------> Visit https://github.com/graulr/BaseGearSwap/ for setup help and examples <-------
+-------------------------------------------------------------------------------------------
+--                                                                                       --
+--                 To declare a set for a specific ability or spell:                     --
 --            sets.midcast.Cure = {}   <- Does not have a space in title                 --
 --      sets.midcast["Cure II"] = {}   <- Space in title so ["Spell Name"] must be used  --
+--                                                                                       --
+--                  Capitalization matters: ["cure II"] won't work!                      --
 -------------------------------------------------------------------------------------------
---  ############# CAPITALIZATION MATTERS! -> ["cure II"] won't work! ##################  --
--------------------------------------------------------------------------------------------
---             precast is automatically called before an action is initiated             --
---             midcast is automatically called during the action                         --
---             aftercast is automatically called after the action occurs                 --
--------------------------------------------------------------------------------------------
+
 
 function macro_setup()
     --===================================================================================--
@@ -57,10 +57,18 @@ function get_sets()
     -- `//gs c primary` will set it back to normal
     sets.ALTERNATE = {}
 
+    -- `//gs c alternate 2`
+    sets.ALTERNATE_2 = {}
+
+    -- `//gs c alternate 3`
+    sets.ALTERNATE_3 = {}
+
+
 
     --===================================================================================--
     --                                                                                   --
     --                                        Precast                                    --
+    --                  automatically called *before* the action is initiated            --
     --                                                                                   --
     --===================================================================================--
     sets.precast = {} -- Ignore and don't remove
@@ -80,6 +88,7 @@ function get_sets()
     --===================================================================================--
     --                                                                                   --
     --                                        Midcast                                    --
+    --                      automatically called *during* the action                     --
     --                                                                                   --
     --===================================================================================--
     sets.midcast = {} -- Ignore & don't remove
@@ -95,14 +104,15 @@ function get_sets()
     -- Specific abilities:
     sets.midcast.Provoke = set_combine(ABILITY, {})
 
-    -- Corsair Quickdraw (will swap for all versions of Quickdraw)
-    sets.midcast.Quickdraw = {}
-
 
     ---------------------------------------------------------------------------------------
     --                                    Ranged Attack                                  --
     ---------------------------------------------------------------------------------------
     sets.midcast["Ranged Attack"] = set_combine(ENGAGED_SET, {})
+    RANGED_ATTACK = sets.midcast["Ranged Attack"]
+
+    -- Corsair Quickdraw (will swap for all versions of Quickdraw)
+    sets.midcast.Quickdraw = {}
 
 
     ---------------------------------------------------------------------------------------
@@ -133,7 +143,8 @@ function get_sets()
     ELEMENTAL_MAGIC = sets.midcast["Elemental Magic"]
 
     -- Specific elemental magic:
-    -- Note: These sets will swap for I, II, III, IV, V, ga, & ra versions of the spell
+    -- Note: These sets will swap for I, II, III, IV, V, ga, ra, & corresponding
+    --       ancient magic
     sets.midcast.Stone = set_combine(ELEMENTAL_MAGIC, {})
     sets.midcast.Water = set_combine(ELEMENTAL_MAGIC, {})
     sets.midcast.Aero = set_combine(ELEMENTAL_MAGIC, {})
@@ -266,6 +277,7 @@ function get_sets()
     --===================================================================================--
     --                                                                                   --
     --                                      Aftercast                                    --
+    --                  automatically called *after* the action occurs                   --
     --                                                                                   --
     --===================================================================================--
     sets.aftercast = {} -- Ignore and don't remove
@@ -284,15 +296,15 @@ function get_sets()
     --                                                                                   --
     --===================================================================================--
     -- Sets you might not be using for content but are fun to walk
-    -- around in. Equipped via: //gs c equip AF2
+    -- around in. Equipped via: //gs c equip AF
 
     -- Artifact set
     sets.AF = {}
 
-    -- Relic Set
+    -- //gs c equip AF2
     sets.AF2 = {}
 
-    -- Empyrean Set
+    -- //gs c equip AF3
     sets.AF3 = {}
 
 
@@ -466,6 +478,8 @@ function self_command(command)
         add_to_chat(8, "Command options:")
         add_to_chat(8, "//gs c primary")
         add_to_chat(8, "//gs c alternate")
+        add_to_chat(8, "//gs c alternate 2")
+        add_to_chat(8, "//gs c alternate 3")
         add_to_chat(8, "//gs c equip spell_name")
         add_to_chat(8, "--------------------------------")
         add_to_chat(8, "Type //gs c help <option> to learn more about that option")
@@ -473,6 +487,10 @@ function self_command(command)
         add_to_chat(8, "Setting to primary will disable any sets.ALTERNATE override behavior")
     elseif (string.lower(command) == "help alternate") then
         add_to_chat(8, "Setting to alternate will enable sets.ALTERNATE to override all other swaps")
+    elseif (string.lower(command) == "help alternate 2") then
+        add_to_chat(8, "Setting to alternate will enable sets.ALTERNATE_2 to override all other swaps")
+    elseif (string.lower(command) == "help alternate 3") then
+        add_to_chat(8, "Setting to alternate will enable sets.ALTERNATE_3 to override all other swaps")
     elseif (string.lower(command):sub(1,10) == "help equip") then
         add_to_chat(8, "Equips any set that matches the spell_name supplied (capitalization matters)")
         add_to_chat(8, "--------------------------------")
@@ -483,11 +501,19 @@ function self_command(command)
         add_to_chat(8, "//gs c equip Cure")
     elseif (string.lower(command) == "primary") then
         add_to_chat(8, "Using primary gearset")
-        use_alternate = false
+        alternate_override = 0
         equip_with_alternate(sets.Idle)
-    elseif (string.lower(command) == "alternate") then
+    elseif (string.lower(command) == "alternate" or string.lower(command) == "alternate 1") then
         add_to_chat(8, "Using alternate gearset")
-        use_alternate = true
+        alternate_override = 1
+        equip_with_alternate(sets.Idle)
+    elseif (string.lower(command) == "alternate 2") then
+        add_to_chat(8, "Using alternate 2 gearset")
+        alternate_override = 2
+        equip_with_alternate(sets.Idle)
+    elseif (string.lower(command) == "alternate 3") then
+        add_to_chat(8, "Using alternate 3 gearset")
+        alternate_override = 3
         equip_with_alternate(sets.Idle)
     elseif (command:sub(1,6) == "equip ") then
         add_to_chat(8, "Equipping " .. command:sub(7))
@@ -645,14 +671,19 @@ end
 
 function sub_job_change(new, old)
     macro_setup()
+    equip_with_alternate(sets.Idle)
 end
 
 -- Conditionally override the supplied gearset with sets.ALTERNATE
 function combine_alternate(gearset)
-    if use_alternate then
-        return set_combine(gearset, sets.ALTERNATE)
-    else
+    if not alternate_override or alternate_override == 0 then
         return gearset
+    elseif alternate_override == 1 then
+        return set_combine(gearset, sets.ALTERNATE)
+    elseif alternate_override == 2 then
+        return set_combine(gearset, sets.ALTERNATE_2)
+    elseif alternate_override == 3 then
+        return set_combine(gearset, sets.ALTERNATE_3)
     end
 end
 
