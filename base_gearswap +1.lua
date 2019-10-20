@@ -12,7 +12,7 @@ include("organizer-lib")
 --            sets.midcast.Cure = {}   <- Does not have a space in title                 --
 --      sets.midcast["Cure II"] = {}   <- Space in title so ["Spell Name"] must be used  --
 --                                                                                       --
---                  Capitization matters! -> ["cure II"] won't work!                     --
+--                  Capitalization matters: ["cure II"] won't work!                      --
 -------------------------------------------------------------------------------------------
 
 
