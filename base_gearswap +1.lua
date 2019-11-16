@@ -63,6 +63,12 @@ function get_sets()
     -- `//gs c alternate 3`
     sets.ALTERNATE_3 = {}
 
+    -- `//gs c alternate 4`
+    sets.ALTERNATE_4 = {}
+
+    -- `//gs c alternate 5`
+    sets.ALTERNATE_5 = {}
+
 
 
     --===================================================================================--
@@ -463,6 +469,7 @@ function aftercast(spell)
 end
 
 function status_change(new, old)
+    current_status = new
     if new == "Resting" then
         equip_with_alternate(sets.aftercast.Resting)
     elseif new == "Engaged" then
@@ -491,6 +498,10 @@ function self_command(command)
         add_to_chat(8, "Setting to alternate will enable sets.ALTERNATE_2 to override all other swaps")
     elseif (string.lower(command) == "help alternate 3") then
         add_to_chat(8, "Setting to alternate will enable sets.ALTERNATE_3 to override all other swaps")
+    elseif (string.lower(command) == "help alternate 4") then
+        add_to_chat(8, "Setting to alternate will enable sets.ALTERNATE_4 to override all other swaps")
+    elseif (string.lower(command) == "help alternate 5") then
+        add_to_chat(8, "Setting to alternate will enable sets.ALTERNATE_5 to override all other swaps")
     elseif (string.lower(command):sub(1,10) == "help equip") then
         add_to_chat(8, "Equips any set that matches the spell_name supplied (capitalization matters)")
         add_to_chat(8, "--------------------------------")
@@ -502,19 +513,27 @@ function self_command(command)
     elseif (string.lower(command) == "primary") then
         add_to_chat(8, "Using primary gearset")
         alternate_override = 0
-        equip_with_alternate(sets.Idle)
+        equip_status_with_alternate()
     elseif (string.lower(command) == "alternate" or string.lower(command) == "alternate 1") then
         add_to_chat(8, "Using alternate gearset")
         alternate_override = 1
-        equip_with_alternate(sets.Idle)
+        equip_status_with_alternate()
     elseif (string.lower(command) == "alternate 2") then
-        add_to_chat(8, "Using alternate 2 gearset")
+        add_to_chat(8, "Using alternate gearset 2")
         alternate_override = 2
-        equip_with_alternate(sets.Idle)
+        equip_status_with_alternate()
     elseif (string.lower(command) == "alternate 3") then
-        add_to_chat(8, "Using alternate 3 gearset")
+        add_to_chat(8, "Using alternate gearset 3")
         alternate_override = 3
-        equip_with_alternate(sets.Idle)
+        equip_status_with_alternate()
+    elseif (string.lower(command) == "alternate 4") then
+        add_to_chat(8, "Using alternate gearset 4")
+        alternate_override = 4
+        equip_status_with_alternate()
+    elseif (string.lower(command) == "alternate 5") then
+        add_to_chat(8, "Using alternate gearset 5")
+        alternate_override = 5
+        equip_status_with_alternate()
     elseif (command:sub(1,6) == "equip ") then
         add_to_chat(8, "Equipping " .. command:sub(7))
         equip(get_gear_for_spell(nil, command:sub(7)))
@@ -684,12 +703,27 @@ function combine_alternate(gearset)
         return set_combine(gearset, sets.ALTERNATE_2)
     elseif alternate_override == 3 then
         return set_combine(gearset, sets.ALTERNATE_3)
+    elseif alternate_override == 4 then
+        return set_combine(gearset, sets.ALTERNATE_4)
+    elseif alternate_override == 5 then
+        return set_combine(gearset, sets.ALTERNATE_5)
     end
 end
 
 -- Equip while factoring alternate override
 function equip_with_alternate(gearset)
     equip(combine_alternate(gearset))
+end
+
+-- Equip the appropriate gear for the current status factoring in alternate
+function equip_status_with_alternate()
+    gearset = sets.Idle
+    if current_status == 'Engaged' then
+        gearset = sets.Engaged
+    elseif current_status == 'Resting' then
+        gearset = sets.aftercast.Resting
+    end
+    equip_with_alternate(gearset)
 end
 
 -- Set current macro and display message
