@@ -48,27 +48,37 @@ function get_sets()
     IDLE_SET = sets.Idle
 
     -- A set of gear to engage the monster in
-    -- If weapons differ from `sets.Idle` TP will be lost after each fight
+    -- If weapons differ from sets.Idle TP will be lost after each fight
     sets.Engaged = set_combine(IDLE_SET, {})
     ENGAGED_SET = sets.Engaged
 
-    -- An alternate base set that overrides Engaged and Idle after the command:
-    -- `//gs c alternate` has been run
-    -- `//gs c primary` will set it back to normal
+
+    --===================================================================================--
+    --                                                                                   --
+    --                                    Override Sets                                  --
+    --                                                                                   --
+    --===================================================================================--
+    -- Sets that override all sets when enabled (except for sets.aftercast.Resting)
+
+    -- A set that focuses purely on potency of damage/healing
+    -- Bound to the ` key (press ` in game to toggle):
+    sets.Potency = {}
+
+    -- Sets that override all other sets once //gs c alternate has been run
+    -- //gs c primary will set it back to normal
     sets.ALTERNATE = {}
 
-    -- `//gs c alternate 2`
+    -- //gs c alternate 2
     sets.ALTERNATE_2 = {}
 
-    -- `//gs c alternate 3`
+    -- //gs c alternate 3
     sets.ALTERNATE_3 = {}
 
-    -- `//gs c alternate 4`
+    -- //gs c alternate 4
     sets.ALTERNATE_4 = {}
 
-    -- `//gs c alternate 5`
+    -- //gs c alternate 5
     sets.ALTERNATE_5 = {}
-
 
 
     --===================================================================================--
@@ -342,21 +352,22 @@ function get_sets()
     sets.Synergy = {}
 
 
-    ------------------------------------ End of gearsets ----------------------------------
-    -- Sets macros on file load
-    macro_setup()
+     ------------------------------------ End of gearsets ----------------------------------
+    -- Sets macros and other states on load
+    initalize_setup()
 end
-
 
 --=======================================================================================--
 --                                                                                       --
 --                                     Optional Config                                   --
 --                                                                                       --
 --=======================================================================================--
--- Setting to true keeps the last midcast gear change until the next user triggered event
--- (nice for casters who want to see spell animations)
+-- Setting to true keeps the last user triggered gear change equipped until either
+-- 1.  User triggers another event causing a swap
+-- 2.  Battle ends
+-- Useful for casters who want to see spell animations
+-- Can also be toggled in game via: //gs c toggle keep_gear
 keep_gear_until_next_event = false
-
 
 -----------------------------------------------------------------------------------------------------
 --=================================================================================================--
@@ -438,15 +449,15 @@ function precast(spell)
 
         -- Cure & MND
         if spell.name:sub(1,3) == "Cur" and spell.name ~= "Cursna" then
-            equip_with_alternate(set_combine(spell_gear, sets.precast.Cure))
+            equip_with_overrides(set_combine(spell_gear, sets.precast.Cure))
 
         -- Enhancing
         elseif spell.skill == "Enhancing Magic" then
-            equip_with_alternate(set_combine(spell_gear, sets.precast["Enhancing Magic"]))
+            equip_with_overrides(set_combine(spell_gear, sets.precast["Enhancing Magic"]))
 
         --- General fast cast
         elseif not sets.precast.FastCast == {} then
-            equip_with_alternate(set_combine(spell_gear, sets.precast.FastCast))
+            equip_with_overrides(set_combine(spell_gear, sets.precast.FastCast))
         end
     end
 end
@@ -457,25 +468,25 @@ function midcast(spell)
 end
 
 function aftercast(spell)
-    if keep_gear_until_next_event then
-        equip_with_alternate(spell)
+    if keep_gear_until_next_event == true then
+        equip_with_overrides(spell)
     elseif player.status == "Engaged" then
-        equip_with_alternate(sets.Engaged)
+        equip_with_overrides(sets.Engaged)
     elseif player.status == "Resting" then
-        equip_with_alternate(sets.aftercast.Resting)
+        equip_with_overrides(sets.aftercast.Resting)
     else
-        equip_with_alternate(sets.Idle)
+        equip_with_overrides(sets.Idle)
     end
 end
 
 function status_change(new, old)
     current_status = new
     if new == "Resting" then
-        equip_with_alternate(sets.aftercast.Resting)
+        equip(sets.aftercast.Resting)
     elseif new == "Engaged" then
-        equip_with_alternate(sets.Engaged)
+        equip_with_overrides(sets.Engaged)
     elseif new == "Idle" then
-        equip_with_alternate(sets.Idle)
+        equip_with_overrides(sets.Idle)
     end
 end
 
@@ -484,9 +495,12 @@ function self_command(command)
     if (string.lower(command) == "help") then
         add_to_chat(8, "Command options:")
         add_to_chat(8, "//gs c primary")
-        add_to_chat(8, "//gs c alternate")
+        add_to_chat(8, "//gs c alternate 1")
         add_to_chat(8, "//gs c alternate 2")
         add_to_chat(8, "//gs c alternate 3")
+        add_to_chat(8, "//gs c alternate 4")
+        add_to_chat(8, "//gs c alternate 5")
+        add_to_chat(8, "//gs c toggle keep_gear")
         add_to_chat(8, "//gs c equip spell_name")
         add_to_chat(8, "--------------------------------")
         add_to_chat(8, "Type //gs c help <option> to learn more about that option")
@@ -502,6 +516,8 @@ function self_command(command)
         add_to_chat(8, "Setting to alternate will enable sets.ALTERNATE_4 to override all other swaps")
     elseif (string.lower(command) == "help alternate 5") then
         add_to_chat(8, "Setting to alternate will enable sets.ALTERNATE_5 to override all other swaps")
+    elseif (string.lower(command) == "help toggle keep_gear") then
+        add_to_chat(8, "Toggling keep_gear will skip Engaged and Idle transitions during battle")
     elseif (string.lower(command):sub(1,10) == "help equip") then
         add_to_chat(8, "Equips any set that matches the spell_name supplied (capitalization matters)")
         add_to_chat(8, "--------------------------------")
@@ -510,30 +526,44 @@ function self_command(command)
         add_to_chat(8, "//gs c equip Ranged")
         add_to_chat(8, "//gs c equip Resting")
         add_to_chat(8, "//gs c equip Cure")
+    elseif (string.lower(command) == "toggle keep_gear") then
+        keep_gear_until_next_event = not keep_gear_until_next_event
+        if keep_gear_until_next_event then
+            add_to_chat(8, "Enabling keep_gear_until_next_event")
+        else
+            add_to_chat(8, "Disabling keep_gear_until_next_event")
+        end
+    elseif (string.lower(command) == "toggle potency") then
+        potency = not potency
+        if potency then
+            add_to_chat(8, "Enabling potency override")
+        else
+            add_to_chat(8, "Disabling potency override")
+        end
     elseif (string.lower(command) == "primary") then
         add_to_chat(8, "Using primary gearset")
         alternate_override = 0
-        equip_status_with_alternate()
+        equip_status_with_overrides()
     elseif (string.lower(command) == "alternate" or string.lower(command) == "alternate 1") then
         add_to_chat(8, "Using alternate gearset")
         alternate_override = 1
-        equip_status_with_alternate()
+        equip_status_with_overrides()
     elseif (string.lower(command) == "alternate 2") then
         add_to_chat(8, "Using alternate gearset 2")
         alternate_override = 2
-        equip_status_with_alternate()
+        equip_status_with_overrides()
     elseif (string.lower(command) == "alternate 3") then
         add_to_chat(8, "Using alternate gearset 3")
         alternate_override = 3
-        equip_status_with_alternate()
+        equip_status_with_overrides()
     elseif (string.lower(command) == "alternate 4") then
         add_to_chat(8, "Using alternate gearset 4")
         alternate_override = 4
-        equip_status_with_alternate()
+        equip_status_with_overrides()
     elseif (string.lower(command) == "alternate 5") then
         add_to_chat(8, "Using alternate gearset 5")
         alternate_override = 5
-        equip_status_with_alternate()
+        equip_status_with_overrides()
     elseif (command:sub(1,6) == "equip ") then
         add_to_chat(8, "Equipping " .. command:sub(7))
         equip(get_gear_for_spell(nil, command:sub(7)))
@@ -685,45 +715,65 @@ function get_gear_for_spell(spell, spell_name)
             current_set = sets.midcast.Magic
         end
     end
-    return combine_alternate(current_set)
+
+    return combine_overrides(current_set)
 end
 
 function sub_job_change(new, old)
     macro_setup()
-    equip_with_alternate(sets.Idle)
+    equip_with_overrides(sets.Idle)
 end
 
--- Conditionally override the supplied gearset with sets.ALTERNATE
-function combine_alternate(gearset)
-    if not alternate_override or alternate_override == 0 then
-        return gearset
-    elseif alternate_override == 1 then
-        return set_combine(gearset, sets.ALTERNATE)
-    elseif alternate_override == 2 then
-        return set_combine(gearset, sets.ALTERNATE_2)
-    elseif alternate_override == 3 then
-        return set_combine(gearset, sets.ALTERNATE_3)
-    elseif alternate_override == 4 then
-        return set_combine(gearset, sets.ALTERNATE_4)
-    elseif alternate_override == 5 then
-        return set_combine(gearset, sets.ALTERNATE_5)
+-- Conditionally override the supplied gearset with override sets
+function combine_overrides(gearset)
+    -- Handle any keybinding overrides
+    if potency == true then
+        gearset = set_combine(gearset, sets.Potency)
     end
+
+    -- Handle any alternate overrides
+    if alternate_override == 1 then
+        gearset = set_combine(gearset, sets.ALTERNATE)
+    elseif alternate_override == 2 then
+        gearset = set_combine(gearset, sets.ALTERNATE_2)
+    elseif alternate_override == 3 then
+        gearset = set_combine(gearset, sets.ALTERNATE_3)
+    elseif alternate_override == 4 then
+        gearset = set_combine(gearset, sets.ALTERNATE_4)
+    elseif alternate_override == 5 then
+        gearset = set_combine(gearset, sets.ALTERNATE_5)
+    end
+
+    return gearset
 end
 
--- Equip while factoring alternate override
-function equip_with_alternate(gearset)
-    equip(combine_alternate(gearset))
+-- Equip while factoring overrides
+function equip_with_overrides(gearset)
+    equip(combine_overrides(gearset))
 end
 
--- Equip the appropriate gear for the current status factoring in alternate
-function equip_status_with_alternate()
+-- Equip the appropriate gear for the current status factoring in overrides
+function equip_status_with_overrides()
     gearset = sets.Idle
     if current_status == 'Engaged' then
         gearset = sets.Engaged
     elseif current_status == 'Resting' then
         gearset = sets.aftercast.Resting
     end
-    equip_with_alternate(gearset)
+    equip_with_overrides(gearset)
+end
+
+function initalize_setup()
+    macro_setup()
+    potency = false
+    alternate_override = 0
+    keep_gear_until_next_event = keep_gear_until_next_event
+    current_status = nil
+    send_command('bind ` gs c toggle potency')
+end
+
+function file_unload()
+    send_command('unbind `')
 end
 
 -- Set current macro and display message
