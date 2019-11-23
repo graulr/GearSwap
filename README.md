@@ -16,22 +16,30 @@
 </p>
 <br/>
 
-## 3. Navigate to `windower/addons/gearswap/data/`
+## 3. Download the <a href="https://github.com/graulr/GearSwap/releases">latest release</a> and unzip
+#### Take note where you unzip the folder
+<br/>
+
+## 4. Navigate to `windower/addons/gearswap/data/`
 <p align="center">
     <img src="http://g.recordit.co/tRaVbyLdip.gif">
 </p>
 <br/>
 
-## 4. Set `windower/addons/gearswap/data/` in quick access
+## 5. Set `windower/addons/gearswap/data/` in quick access
 #### You will be going here often and this will make it much easier to find
 <p align="center">
     <img src="http://g.recordit.co/sQe9Cplwj7.gif">
 </p>
 <br/>
 
-## 5. Save the <a href="https://raw.githubusercontent.com/graulr/BaseGearSwap/master/base_gearswap%20%2B1.lua">latest base_gearswap +1</a> as `base_gearswap +1.lua` in `windower/addons/gearswap/data/`
+## 6. Copy `base_gearswap +1.lua` into `windower/addons/gearswap/data/`
+<p align="center">
+    <img src="http://g.recordit.co/cIbiaYDCtk.gif">
+</p>
+<br/>
 
-## 6. Create a duplicate `base_gearswap +1.lua`
+## 7. Create a duplicate `base_gearswap +1.lua`
 #### Name the duplicate in the following format: `charactername-job.lua`
 #### Example: `graulr-cor.lua` if my character's name is **Graulr** and my job is **Corsair**
 <p align="center">
@@ -39,47 +47,47 @@
 </p>
 <br/>
 
-## 7. Associate `.lua` files with Sublime Text editor 
+## 8. Associate `.lua` files with Sublime Text editor 
 #### **Do not** use Microsoft Word or other rich text editors to edit .lua files
 <p align="center">
     <img src="http://g.recordit.co/eoeNyHbwMi.gif">
 </p>
 <br/>
 
-## 8. In FFXI equip your idle set
+## 9. In FFXI equip your idle set
 #### A base set of gear that you typically stand around in
 <p align="center">
     <img src="https://i.imgur.com/4LIjJxQ.gif">
 </p>
 <br/>
 
-## 9. Run `//gs export` in game
+## 10. Run `//gs export` in game
 <p align="center">
     <img src="http://g.recordit.co/Rc8JB8mm5T.gif">
 </p>
 <br/>
 
-## 10. Open up `windower/addons/gearswap/data/` in Sublime Text editor
+## 11. Open up `windower/addons/gearswap/data/` in Sublime Text editor
 <p align="center">
     <img src="http://g.recordit.co/eN4AM7OMyN.gif">
 </p>
 <br/>
 
-## 11. Copy the set you exported, paste it into sets.Idle within your new gearswap file and **save**
+## 12. Copy the set you exported, paste it into sets.Idle within your new gearswap file and **save**
 #### Search for `sets.Idle =` using the find function (ctrl + f) in Sublime
 <p align="center">
     <img src="https://i.imgur.com/svKztVj.gif">
 </p>
 <br/>
 
-## 12. Run `//gs load charactername-job.lua` in game
+## 13. Run `//gs load charactername-job.lua` in game
 #### After running this command, this file will be automatically loaded whenever you switch to this job in game.
 <p align="center">
     <img src="https://i.imgur.com/9Sh0kt8.gif">
 </p>
 <br/>
 
-## 13. Setup macros in your new gearswap file
+## 14. Setup macros in your new gearswap file
 #### Whenever you switch jobs/subjobs, your macro books will automatically be set by default
 <p align="center">
     <img src="https://i.imgur.com/ldfn3yK.gif">
@@ -89,13 +97,13 @@
 </p>
 <br/>
 
-## 14. Run `//gs reload` in game
+## 15. Run `//gs reload` in game
 #### Whenever you update a gearswap file **while playing the game**, you need to run the reload command to get your latest changes.
 <p align="center">
     <img src="https://i.imgur.com/S32RIWc.gif">
 </p>
 <br/>
 
-## 15. Explore the contents of your new gearswap file and add your gear wherever applicable
+## 16. Explore the contents of your new gearswap file and add your gear wherever applicable
 #### Try out `//gs help` and `//gs c help` in game to learn more commands.
 #### View [BaseGearSwap/examples](https://github.com/graulr/BaseGearSwap/tree/master/Examples) to see examples on where and how to add more gear.
