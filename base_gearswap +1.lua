@@ -58,7 +58,7 @@ function get_sets()
     --                                    Override Sets                                  --
     --                                                                                   --
     --===================================================================================--
-    -- Sets that override all sets when enabled (except for sets.aftercast.Resting)
+    -- Sets that override when enabled (except for sets.aftercast.Resting)
 
     -- A set that focuses purely on potency of damage/healing
     -- Press f9 in game to toggle:
@@ -546,7 +546,6 @@ function self_command(command)
         update_toggle_override("potency")
     elseif (string.lower(command) == "toggle defensive") then
         update_toggle_override("defensive")
-        equip_status_with_overrides()
     elseif (string.lower(command) == "toggle magic burst") then
         update_toggle_override("magic_burst")
     elseif (string.lower(command) == "primary") then
@@ -802,6 +801,7 @@ function update_toggle_override(key)
     toggle_overrides = get_default_toggle_override_map()
     toggle_overrides[key] = not current_value
     display_toggle_message(toggle_overrides[key], key)
+    equip_status_with_overrides()
 end
 
 function display_message(message)
