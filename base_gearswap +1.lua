@@ -546,6 +546,7 @@ function self_command(command)
         update_toggle_override("potency")
     elseif (string.lower(command) == "toggle defensive") then
         update_toggle_override("defensive")
+        equip_status_with_overrides()
     elseif (string.lower(command) == "toggle magic burst") then
         update_toggle_override("magic_burst")
     elseif (string.lower(command) == "primary") then
