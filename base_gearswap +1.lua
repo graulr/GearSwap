@@ -61,8 +61,17 @@ function get_sets()
     -- Sets that override all sets when enabled (except for sets.aftercast.Resting)
 
     -- A set that focuses purely on potency of damage/healing
-    -- Bound to the ` key (press ` in game to toggle):
+    -- Press f9 in game to toggle:
     sets.Potency = {}
+
+    -- A set that focuses purely on magic bursting
+    -- Press f10 in game to toggle:
+    sets.Magic_Burst = {}
+
+    -- A set that focuses purely on defense
+    -- Press f11 in game to toggle:
+    sets.Defensive = {}
+
 
     -- Sets that override all other sets once //gs c alternate has been run
     -- //gs c primary will set it back to normal
@@ -490,84 +499,80 @@ function status_change(new, old)
     end
 end
 
--- Process user command input
+function sub_job_change(new, old)
+    macro_setup()
+    equip_with_overrides(sets.Idle)
+end
+
 function self_command(command)
     if (string.lower(command) == "help") then
-        add_to_chat(8, "Command options:")
-        add_to_chat(8, "//gs c primary")
-        add_to_chat(8, "//gs c alternate 1")
-        add_to_chat(8, "//gs c alternate 2")
-        add_to_chat(8, "//gs c alternate 3")
-        add_to_chat(8, "//gs c alternate 4")
-        add_to_chat(8, "//gs c alternate 5")
-        add_to_chat(8, "//gs c toggle keep_gear")
-        add_to_chat(8, "//gs c equip spell_name")
-        add_to_chat(8, "--------------------------------")
-        add_to_chat(8, "Type //gs c help <option> to learn more about that option")
+        display_message("Command options:")
+        display_message("//gs c primary")
+        display_message("//gs c alternate 1")
+        display_message("//gs c alternate 2")
+        display_message("//gs c alternate 3")
+        display_message("//gs c alternate 4")
+        display_message("//gs c alternate 5")
+        display_message("//gs c toggle keep_gear")
+        display_message("//gs c equip spell_name")
+        display_message("--------------------------------")
+        display_message("Type //gs c help <option> to learn more about that option")
     elseif (string.lower(command) == "help primary") then
-        add_to_chat(8, "Setting to primary will disable any sets.ALTERNATE override behavior")
+        display_message("Setting to primary will disable any sets.ALTERNATE override behavior")
     elseif (string.lower(command) == "help alternate") then
-        add_to_chat(8, "Setting to alternate will enable sets.ALTERNATE to override all other swaps")
+        display_message("Setting to alternate will enable sets.ALTERNATE to override all other swaps")
     elseif (string.lower(command) == "help alternate 2") then
-        add_to_chat(8, "Setting to alternate will enable sets.ALTERNATE_2 to override all other swaps")
+        display_message("Setting to alternate will enable sets.ALTERNATE_2 to override all other swaps")
     elseif (string.lower(command) == "help alternate 3") then
-        add_to_chat(8, "Setting to alternate will enable sets.ALTERNATE_3 to override all other swaps")
+        display_message("Setting to alternate will enable sets.ALTERNATE_3 to override all other swaps")
     elseif (string.lower(command) == "help alternate 4") then
-        add_to_chat(8, "Setting to alternate will enable sets.ALTERNATE_4 to override all other swaps")
+        display_message("Setting to alternate will enable sets.ALTERNATE_4 to override all other swaps")
     elseif (string.lower(command) == "help alternate 5") then
-        add_to_chat(8, "Setting to alternate will enable sets.ALTERNATE_5 to override all other swaps")
+        display_message("Setting to alternate will enable sets.ALTERNATE_5 to override all other swaps")
     elseif (string.lower(command) == "help toggle keep_gear") then
-        add_to_chat(8, "Toggling keep_gear will skip Engaged and Idle transitions during battle")
+        display_message("Toggling keep_gear will skip Engaged and Idle transitions during battle")
     elseif (string.lower(command):sub(1,10) == "help equip") then
-        add_to_chat(8, "Equips any set that matches the spell_name supplied (capitalization matters)")
-        add_to_chat(8, "--------------------------------")
-        add_to_chat(8, "Examples:")
-        add_to_chat(8, "//gs c equip Fast Blade")
-        add_to_chat(8, "//gs c equip Ranged")
-        add_to_chat(8, "//gs c equip Resting")
-        add_to_chat(8, "//gs c equip Cure")
+        display_message("Equips any set that matches the spell_name supplied (capitalization matters)")
+        display_message("--------------------------------")
+        display_message("Examples:")
+        display_message("//gs c equip Fast Blade")
+        display_message("//gs c equip Ranged")
+        display_message("//gs c equip Resting")
+        display_message("//gs c equip Cure")
     elseif (string.lower(command) == "toggle keep_gear") then
         keep_gear_until_next_event = not keep_gear_until_next_event
-        if keep_gear_until_next_event then
-            add_to_chat(8, "Enabling keep_gear_until_next_event")
-        else
-            add_to_chat(8, "Disabling keep_gear_until_next_event")
-        end
+        display_toggle_message(keep_gear_until_next_event, "keep_gear_until_next_event")
     elseif (string.lower(command) == "toggle potency") then
-        potency = not potency
-        if potency then
-            add_to_chat(8, "Enabling potency override")
-        else
-            add_to_chat(8, "Disabling potency override")
-        end
+        update_toggle_override("potency")
+    elseif (string.lower(command) == "toggle defensive") then
+        update_toggle_override("defensive")
+    elseif (string.lower(command) == "toggle magic burst") then
+        update_toggle_override("magic_burst")
     elseif (string.lower(command) == "primary") then
-        add_to_chat(8, "Using primary gearset")
+        display_message("Using primary gearset")
         alternate_override = 0
         equip_status_with_overrides()
     elseif (string.lower(command) == "alternate" or string.lower(command) == "alternate 1") then
-        add_to_chat(8, "Using alternate gearset")
-        alternate_override = 1
-        equip_status_with_overrides()
+        set_alternate(1)
     elseif (string.lower(command) == "alternate 2") then
-        add_to_chat(8, "Using alternate gearset 2")
-        alternate_override = 2
-        equip_status_with_overrides()
+        set_alternate(2)
     elseif (string.lower(command) == "alternate 3") then
-        add_to_chat(8, "Using alternate gearset 3")
-        alternate_override = 3
-        equip_status_with_overrides()
+        set_alternate(3)
     elseif (string.lower(command) == "alternate 4") then
-        add_to_chat(8, "Using alternate gearset 4")
-        alternate_override = 4
-        equip_status_with_overrides()
+        set_alternate(4)
     elseif (string.lower(command) == "alternate 5") then
-        add_to_chat(8, "Using alternate gearset 5")
-        alternate_override = 5
-        equip_status_with_overrides()
+        set_alternate(5)
     elseif (command:sub(1,6) == "equip ") then
-        add_to_chat(8, "Equipping " .. command:sub(7))
+        display_message("Equipping " .. command:sub(7))
         equip(get_gear_for_spell(nil, command:sub(7)))
     end
+end
+
+-- Update alternate_override
+function set_alternate(number)
+    display_message("Using alternate gearset " ..number)
+    alternate_override = number
+    equip_status_with_overrides()
 end
 
 -- Get the appropriate gearset for the spell
@@ -719,16 +724,15 @@ function get_gear_for_spell(spell, spell_name)
     return combine_overrides(current_set)
 end
 
-function sub_job_change(new, old)
-    macro_setup()
-    equip_with_overrides(sets.Idle)
-end
-
 -- Conditionally override the supplied gearset with override sets
 function combine_overrides(gearset)
     -- Handle any keybinding overrides
-    if potency == true then
+    if toggle_overrides.potency == true then
         gearset = set_combine(gearset, sets.Potency)
+    elseif toggle_overrides.defensive == true then
+        gearset = set_combine(gearset, sets.Defensive)
+    elseif toggle_overrides.magic_burst == true then
+        gearset = set_combine(gearset, sets.Magic_Burst)
     end
 
     -- Handle any alternate overrides
@@ -755,29 +759,63 @@ end
 -- Equip the appropriate gear for the current status factoring in overrides
 function equip_status_with_overrides()
     gearset = sets.Idle
-    if current_status == 'Engaged' then
+    if current_status == "Engaged" then
         gearset = sets.Engaged
-    elseif current_status == 'Resting' then
+    elseif current_status == "Resting" then
         gearset = sets.aftercast.Resting
     end
     equip_with_overrides(gearset)
 end
 
+-- Initialize state variables, bind any keys, & setup macros
 function initalize_setup()
-    macro_setup()
-    potency = false
+    toggle_overrides = get_default_toggle_override_map()
+    send_command("bind f9 gs c toggle potency")
+    send_command("bind f10 gs c toggle magic burst")
+    send_command("bind f11 gs c toggle defensive")
     alternate_override = 0
     keep_gear_until_next_event = keep_gear_until_next_event
     current_status = nil
-    send_command('bind ` gs c toggle potency')
+    macro_setup()
 end
 
+-- Unbind all keys
 function file_unload()
-    send_command('unbind `')
+    send_command("unbind f9")
+    send_command("unbind f10")
+    send_command("unbind f11")
 end
 
--- Set current macro and display message
+-- Get a new map with all values initalized to false
+function get_default_toggle_override_map()
+    return {
+        potency=false,
+        defensive=false,
+        magic_burst=false
+    }
+end
+
+-- Update toggle_override on a fresh map and dispaly a message
+function update_toggle_override(key)
+    current_value = toggle_overrides[key]
+    toggle_overrides = get_default_toggle_override_map()
+    toggle_overrides[key] = not current_value
+    display_toggle_message(toggle_overrides[key], key)
+end
+
+function display_message(message)
+    add_to_chat(8, message)
+end
+
+function display_toggle_message(condition, descripton)
+    if condition then
+        display_message("Enabling " .. descripton .. " override")
+    else
+        display_message("Disabling " .. descripton .. " override")
+    end
+end
+
 function set_macro(book_num, page_num)
     send_command("input /macro book " .. book_num .. ";wait .1;input /macro set " .. page_num)
-    add_to_chat(8, "Setting current macros to book " .. book_num .. ", page " .. page_num)
+    display_message("Setting current macros to book " .. book_num .. ", page " .. page_num)
 end
