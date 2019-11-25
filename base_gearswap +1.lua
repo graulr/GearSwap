@@ -24,19 +24,19 @@ function macro_setup()
     --===================================================================================--
     -- This function runs on file load & character job changes
     -- Automatically set the macro book & page according to your subjob
-    -- Ex: 
+    -- Ex:
     --     set_macro({
-    --         DNC=[1, 1],
-    --         SAM=[2, 1],
+    --         DNC={1, 1},
+    --         SAM={2, 1},
     --     })
     -- Would set to book 1 page 1 if your subjob is DNC
     -- Would set to book 2 page 1 if your subjob is SAM
 
     -- Modify me!
-    --  SUB=[Book, Page]
+    --  SUB={Book, Page},
     set_macro({
-        DNC=[1, 1],
-        SAM=[2, 1],
+        DNC={1, 1},
+        SAM={2, 1},
     })
 end
 
@@ -834,8 +834,8 @@ function set_macro(macro_map)
 
         -- Match the key to the current subjob
         if tostring(key) == player.sub_job then
-            book_num = value[0]
-            page_num = value[1]
+            book_num = tostring(value[1])
+            page_num = tostring(value[2])
             send_command("input /macro book " .. book_num .. ";wait .1;input /macro set " .. page_num)
             display_message("Setting current macros to book " .. book_num .. ", page " .. page_num)
         end
