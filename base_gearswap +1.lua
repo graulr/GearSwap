@@ -498,6 +498,7 @@ function sub_job_change(new, old)
 end
 
 function self_command(command)
+    -- Help commands
     if (string.lower(command) == "help") then
         display_message("Command options:")
         display_message("//gs c primary")
@@ -533,6 +534,8 @@ function self_command(command)
         display_message("//gs c equip Resting")
         display_message("//gs c equip Cure")
         display_message("//gs c equip Elemental Magic")
+
+    -- Toggle commands
     elseif (string.lower(command) == "toggle keep_gear") then
         update_toggle_override("keep_gear")
     elseif (string.lower(command) == "toggle potency") then
@@ -541,6 +544,8 @@ function self_command(command)
         update_toggle_override("defensive")
     elseif (string.lower(command) == "toggle magic burst") then
         update_toggle_override("magic_burst")
+
+    -- Alternate commands
     elseif (string.lower(command) == "primary") then
         set_alternate(0)
     elseif (string.lower(command) == "alternate" or string.lower(command) == "alternate 1") then
@@ -553,10 +558,50 @@ function self_command(command)
         set_alternate(4)
     elseif (string.lower(command) == "alternate 5") then
         set_alternate(5)
+
+    -- Equip commands
     elseif (command:sub(1,6) == "equip ") then
         display_message("Equipping " .. command:sub(7))
         equip(get_gear_for_spell(nil, command:sub(7)))
     end
+end
+
+-- Initialize state variables, bind any keys, & setup macros
+function initalize_setup()
+    toggle_overrides = get_default_toggle_override_map()
+    send_command("bind f9 gs c toggle potency")
+    send_command("bind f10 gs c toggle magic burst")
+    send_command("bind f11 gs c toggle defensive")
+    alternate_override = 0
+    toggle_overrides.keep_gear = keep_gear_until_next_event
+    current_status = nil
+    macro_setup()
+end
+
+-- Unbind all keys
+function file_unload()
+    send_command("unbind f9")
+    send_command("unbind f10")
+    send_command("unbind f11")
+end
+
+-- Get a new map with all values initalized to false
+function get_default_toggle_override_map()
+    return {
+        potency=false,
+        defensive=false,
+        magic_burst=false,
+        keep_gear=false
+    }
+end
+
+-- Update toggle_override on a fresh map and dispaly a message
+function update_toggle_override(key)
+    current_value = toggle_overrides[key]
+    toggle_overrides = get_default_toggle_override_map()
+    toggle_overrides[key] = not current_value
+    display_toggle_message(toggle_overrides[key], key)
+    equip_status_with_overrides()
 end
 
 -- Update alternate_override
@@ -588,7 +633,6 @@ function get_gear_for_spell(spell, spell_name)
     -- Name match
     elseif sets.midcast[spell_name] then
         current_set = sets.midcast[spell_name]
-
     elseif sets[spell_name] then
         current_set = sets[spell_name]
 
@@ -760,44 +804,6 @@ function equip_status_with_overrides()
         gearset = sets.aftercast.Resting
     end
     equip_with_overrides(gearset)
-end
-
--- Initialize state variables, bind any keys, & setup macros
-function initalize_setup()
-    toggle_overrides = get_default_toggle_override_map()
-    send_command("bind f9 gs c toggle potency")
-    send_command("bind f10 gs c toggle magic burst")
-    send_command("bind f11 gs c toggle defensive")
-    alternate_override = 0
-    toggle_overrides.keep_gear = keep_gear_until_next_event
-    current_status = nil
-    macro_setup()
-end
-
--- Unbind all keys
-function file_unload()
-    send_command("unbind f9")
-    send_command("unbind f10")
-    send_command("unbind f11")
-end
-
--- Get a new map with all values initalized to false
-function get_default_toggle_override_map()
-    return {
-        potency=false,
-        defensive=false,
-        magic_burst=false,
-        keep_gear=false
-    }
-end
-
--- Update toggle_override on a fresh map and dispaly a message
-function update_toggle_override(key)
-    current_value = toggle_overrides[key]
-    toggle_overrides = get_default_toggle_override_map()
-    toggle_overrides[key] = not current_value
-    display_toggle_message(toggle_overrides[key], key)
-    equip_status_with_overrides()
 end
 
 function display_message(message)
