@@ -23,15 +23,21 @@ function macro_setup()
     --                                                                                   --
     --===================================================================================--
     -- This function runs on file load & character job changes
-    -- Set the current macro book & page according to your subjob
-    -- Ex: set_macro(2, 1) would set macro book 2 & page 1
+    -- Automatically set the macro book & page according to your subjob
+    -- Ex: 
+    --     set_macro({
+    --         DNC=[1, 1],
+    --         SAM=[2, 1],
+    --     })
+    -- Would set to book 1 page 1 if your subjob is DNC
+    -- Would set to book 2 page 1 if your subjob is SAM
 
-    -- Modify me!  Set your 3 letter subjob(s) and corresponding macro books
-    if player.sub_job == "DNC" then
-        set_macro(1, 1)
-    elseif player.sub_job == "SAM" then
-        set_macro(2, 1)
-    end
+    -- Modify me!
+    --  SUB=[Book, Page]
+    set_macro({
+        DNC=[1, 1],
+        SAM=[2, 1],
+    })
 end
 
 
@@ -575,6 +581,7 @@ function initalize_setup()
     alternate_override = 0
     toggle_overrides.keep_gear = keep_gear_until_next_event
     current_status = nil
+    stored_macro_map = nil
     macro_setup()
 end
 
@@ -818,7 +825,19 @@ function display_toggle_message(condition, descripton)
     end
 end
 
-function set_macro(book_num, page_num)
-    send_command("input /macro book " .. book_num .. ";wait .1;input /macro set " .. page_num)
-    display_message("Setting current macros to book " .. book_num .. ", page " .. page_num)
+function set_macro(macro_map)
+    if stored_macro_map == nil then
+        stored_macro_map = macro_map
+    end
+
+    for key, value in pairs(stored_macro_map) do
+
+        -- Match the key to the current subjob
+        if tostring(key) == player.sub_job then
+            book_num = value[0]
+            page_num = value[1]
+            send_command("input /macro book " .. book_num .. ";wait .1;input /macro set " .. page_num)
+            display_message("Setting current macros to book " .. book_num .. ", page " .. page_num)
+        end
+    end
 end
