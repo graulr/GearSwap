@@ -378,79 +378,72 @@ end
 -- Can also be toggled in game via: //gs c toggle keep_gear
 keep_gear_until_next_event = false
 
------------------------------------------------------------------------------------------------------
---=================================================================================================--
---=================================================================================================--
---=================================================================================================--
---============================= Alter code below at your own risk! ================================--
---=================================================================================================--
---=================================================================================================--
------------------------------------------------------------------------------------------------------
--- --------:n:::::::::::::::::::::::::::::--::::::::::::::::::::::::---::::://////::::::::::::::::///
--- ::::::::nNn::::::::::::::::::::::::------:::::::::::----------------:::::////////:::::::::::::::::
--- ::::::::dNN::::::::::::::::::::::::------:::::::::::----------------::::::://////:::::::::::::::::
--- :::-----NNNd::::::::::---------------------------------------:::::::::::::::::::::::::::::::::::::
--- --------NNNN:::::::::::::--..........---------------------------:::::::::::::::::::::::::::-.....-
--- --------NmNN::::::::---------...........-------::::::::::::-------:::::::::::::-----..............
--- ---....-NNNNo.----------........---------------::::::::::::--------------..........```````........
--- ----....mNNNy.......--.....-------------:::::::::::::::---...................```````````````````..
--- -------.hNNNd........---------------::::::::::::::::::-----...................`````````````.......
--- --------sNNNN-......---------------::::::::::::::::::::::::----................```````````........
--- -----...+NmNN:........--------:::::::::::::::::::::::--------------...............................
--- ------..-NmNN+..........-------::::::::::::::::::::::::::------------.........................----
--- -------.-NmNNh..`.......--------::::::::::::::::::::::::::::-:::-------...........................
--- ------..-NmNNN:.........----------------------------------------------------.....................-
--- ........-+NmNN........................ ________....................__........---------------......
--- .........NmNNh---------/+nnsnuss/-----/  _____/___________   __ __|  |_______..----------.........
--- .........NmNNN--------hmdzThenmmh+---/   \  __\_  __ \__  \ |  |  \  |\_  __ \....--..............
--- ------...:mNNNy-------mNnnOlduhho----\    \_\  \  | \// __ \|  |  /  |_|  | \/....................
--- ..........mmNNN--------szGuardx/------\______  /__|  (____  /____/|____/__|.......................
--- ........./NmNNN.-----------------------------\/-----------\/ ----------------------.........-.....
--- ....-...-.NmNNN.-..--.............................................................................
--- .........-dNNNNo..................................................................................
--- ........../NNNN:..................................................................................
--- ..........-mNNN/-.............--..................................................................
--- ..........ydhddhhs:...............................................................................
--- .........-NNNNNNmh:...............................................................................
--- ......--+yNNmNNNmdh:..............................................................................
--- .....-hysyhddddddyyy..............................................................................
--- .....odydhhyhhyyhdys..............................................................................
--- .....hddhdddhhdmNNNo-.............................................................................
--- ....:dddyhhhssmNNNMdy-............................................................................
--- ..../mmmdmmNdmMMMMMNNh-...............................::///o+/-...................................
--- :--..ommmmmmmNNNMMMNNms.............................:hNNNNNNNNNhs/-...............................
--- :-----hNNNNNNNMMMMNNNNNy-........................./odmmmNNNmmmNNmNd-..............................
--- -::::::ddNNNNMMMNNNMMMNN/------------------------+ddNNNNNNNmdddmmmmh-.............................
--- :::::::::sNNNNNNNNMMNNNddNy:::::::::-------------dmNdyyyhhdNmddddmmm+--------..-.....-------------
--- ::::::::::hNMMMNNNNNNmddNMNs///////:::::::------yNmy/-----:+hmmmmmNNs:::::::::::::::::::::::::::::
--- ///////:::/mNNNNNmmmdmNNMMNNmy/////////////:/:::mNmdyo:.--:+hmNNNNNMs://::::::::::::::::::::::::::
--- +++++++///odmMMmmmmmNNMMMMMMNmy+///////////////+NNyosso:shdmmNNNNNMMy//::::::::::::::::/://:::/:::
--- +++++///////+mMMMMMMMMMMMMMMMmhm+::::::::::::::+NNs--:-:/::/NNNNNMMMm/////////////////////////////
--- /+++++/+++///sNNNMMMMMMMMMMMMmhMNho////////////sNMdo/+/o/::oNNNMMMMMMs///////:::::::://::::::::::/
--- //////////////+dNNNMMMMMMMMNmdmMMNNhs+///////+oyNNmyyyysssymNNMMMMMMdh////////////////////////////
--- ///////////////ymNNMMMMMMNmdmNMMMMMNNys+//yhhydNNNmdhdddhhdNMMNNmNNm+/////////////////////////++++
--- /////////////+++shmmNNmmmmmNMMNMMMMMNhhyNNmdmNhdNmhhhyyhdmNNNNNNmdso+++++++++++++++++ooooooooooooo
--- //////+++++++++++osdmmmNMMMMMMMMMMMMNddymNNmdddhymdyyhdmmmmmmmNNNdddyooooooooooooooooooooooooooooo
--- ++++++++oooooooooooosyhmNMMMMMMMMMMMNmmshdNNmmhddhddysyhhhddmNNdhhNmNsoooosssssssooooooooooooooooo
--- ooooooooooooooooooooooooymMMMMMMMMMNmmhdmmNNNNNmdmmmdyyyyhmNmmhhdhdmMmysoooooooooooooo++++++++++++
--- oo+++++ooooooooossooosssosymMMMMMMNmddNMNddmNNMNNNmmmmmdmNmdmmmdmmNNMNmddyo++++++++++++++++///////
--- ooooooooooooooooooooooooooooymNNNNmmmMMMNhdNdyhdNNNNNNNMNNmNmmNNNMMMNhsyyhh+s//////////////::::://
--- +++++++++++++++++///++///////+shmNNNMMMMNyohssysymNNNNNNNNNMNNNNNNNmNmhysoodNh+//////////////::///
--- oo+++++++++++++++///////////////+dMMMMMMNNh+ssyydmNmNmNmmNmNNyhhsmNddddyshNNNmoo/:::::::::::::::::
--- ++++++++o+++++++/////////////////+mMMMMMNmdmsoyddmNmmmmmmmmNmhyyssmddyydNNNmhosss/::::::::-----:::
--- oooooooooo+++++///////////////////hMMMMMMhhmmhysssyhhmdmdmmdddyysssyhmNNNmhyyysss+/::::::---------
--- oo+++++++/////////////////////////hMMMMMNoyhddmmmdhyyyssyyssyyyhhdNMMNNNhydhyyys+dm/::::::::::::::
--- ++//::::://///////////////////////yMMMMMm/hysyyyyo/+shhyydmmmmmNddMMMNmdmmddhyosmMMm::::::::::::::
--- ::////////////////////++++////ss//sMMMMMh+hssssss:-:::::/yyyhhhdsNMMNmmNmmdyyhNMNNMMh/::::::::::::
--- /////////////////////////////sNNy/sMMMMm+yhyyyyho:---:-:syssyydsdMNy+ymmmmmmMMMMMMMMMdo///////////
--- ////++//+++//////////////:///+NMh/sMMMNs+o-::/odhysooosyhyyyhdhhMNs///+NMMMNMMMMMMMNMMNo++++++++++
--- //////////////////////////+ys+MMh/dMMMh/s:-----ysssssshs:::/+yhMNo++++/yMMMMMMMMMMMNMNys++++++++++
--- ////////+++////////////+++hhhoMMdoMMMmoo/-----+ssssssss::::/ohMMN+++++++mMMMMMNNMMMNmymNs+////////
--- ........................./mhshMMNNMMNso/:----+yssssssy/-::/oyMMMMy+:----/dMMMMMNNmdhdNNNh------:--
--- ........................./mdhmNNmNMMh+ho+///shyssssyy/--:/osNMMMMN+/:::-.-+sdmmmdmNNNNmNm.........
--- .........................dNdhmmdddNN+hysssyy///++oshysosyy/mMNNMMMy++++++//::dMNNNmmmmNm+.........
--- :::::::::::--------------+dmmmmmdomdshsssys:----.-osssssh+sMMMMMMd++++++++++++hdNNNNmhso+.........
------------------------------------------------------------------------------------------------------
+
+--=======================================================================================--
+--=======================================================================================--
+--========================== Alter code below at your own risk! =========================--
+--=======================================================================================--
+--=======================================================================================--
+-------:n:::::::::::::::::::::::::::::--::::::::::::::::::::::::---::::://////:::::::::::::
+---::::nNn::::::::::::::::::::::::------:::::::::::----------------:::::////////:::::::::::
+---::::dNN::::::::::::::::::::::::------:::::::::::----------------::::::://////:::::::::::
+-------NNNd::::::::::---------------------------------------:::::::::::::::::::::::::::::::
+-------NNNN:::::::::::::--..........---------------------------:::::::::::::::::::::::::::-
+-------NmNN::::::::---------...........-------::::::::::::-------:::::::::::::-----........
+---...-NNNNo.----------........---------------::::::::::::--------------..........```````..
+---....mNNNy.......--.....-------------:::::::::::::::---...................```````````````
+------.hNNNd........---------------::::::::::::::::::-----...................`````````````.
+-------sNNNN-......---------------::::::::::::::::::::::::----................```````````..
+----...+NmNN:........--------:::::::::::::::::::::::--------------.........................
+-----..-NmNN+..........-------::::::::::::::::::::::::::------------.......................
+------.-NmNNh..`.......--------::::::::::::::::::::::::::::-:::-------.....................
+-----..-NmNNN:.........----------------------------------------------------................
+---....-+NmNN........................ ________....................__........---------------
+---.....NmNNh---------/+nnsnuss/-----/  _____/___________   __ __|  |_______..----------...
+---.....NmNNN--------hmdzThenmmh+---/   \  __\_  __ \__  \ |  |  \  |\_  __ \....--........
+-----...:mNNNy-------mNnnOlduhho----\    \_\  \  | \// __ \|  |  /  |_|  | \/..............
+---......mmNNN--------szGuardx/------\______  /__|  (____  /____/|____/__|.................
+---...../NmNNN.-----------------------------\/-----------\/ ----------------------.........
+----...-.NmNNN.-..--.......................................................................
+---.....-dNNNNo............................................................................
+---....../NNNN:............................................................................
+---......-mNNN/-.............--............................................................
+---......ydhddhhs:.........................................................................
+---.....-NNNNNNmh:.........................................................................
+---..--+yNNmNNNmdh:........................................................................
+---.-hysyhddddddyyy........................................................................
+---.odydhhyhhyyhdys........................................................................
+---.hddhdddhhdmNNNo-.......................................................................
+---:dddyhhhssmNNNMdy-......................................................................
+---/mmmdmmNdmMMMMMNNh-...............................::///o+/-.............................
+---.ommmmmmmNNNMMMNNms.............................:hNNNNNNNNNhs/-.........................
+-----hNNNNNNNMMMMNNNNNy-........................./odmmmNNNmmmNNmNd-........................
+---:::ddNNNNMMMNNNMMMNN/------------------------+ddNNNNNNNmdddmmmmh-.......................
+---:::::sNNNNNNNNMMNNNddNy:::::::::-------------dmNdyyyhhdNmddddmmm+--------..-.....-------
+---::::::hNMMMNNNNNNmddNMNs///////:::::::------yNmy/-----:+hmmmmmNNs:::::::::::::::::::::::
+---///:::/mNNNNNmmmdmNNMMNNmy/////////////:/:::mNmdyo:.--:+hmNNNNNMs://::::::::::::::::::::
+---+++///odmMMmmmmmNNMMMMMMNmy+///////////////+NNyosso:shdmmNNNNNMMy//::::::::::::::::/://:
+---+///////+mMMMMMMMMMMMMMMMmhm+::::::::::::::+NNs--:-:/::/NNNNNMMMm///////////////////////
+---++/+++///sNNNMMMMMMMMMMMMmhMNho////////////sNMdo/+/o/::oNNNMMMMMMs///////:::::::://:::::
+---//////////+dNNNMMMMMMMMNmdmMMNNhs+///////+oyNNmyyyysssymNNMMMMMMdh//////////////////////
+---///////////ymNNMMMMMMNmdmNMMMMMNNys+//yhhydNNNmdhdddhhdNMMNNmNNm+///////////////////////
+---/////////+++shmmNNmmmmmNMMNMMMMMNhhyNNmdmNhdNmhhhyyhdmNNNNNNmdso+++++++++++++++++ooooooo
+---//+++++++++++osdmmmNMMMMMMMMMMMMNddymNNmdddhymdyyhdmmmmmmmNNNdddyooooooooooooooooooooooo
+---++++oooooooooooosyhmNMMMMMMMMMMMNmmshdNNmmhddhddysyhhhddmNNdhhNmNsoooosssssssooooooooooo
+---ooooooooooooooooooooymMMMMMMMMMNmmhdmmNNNNNmdmmmdyyyyhmNmmhhdhdmMmysoooooooooooooo++++++
+---+++ooooooooossooosssosymMMMMMMNmddNMNddmNNMNNNmmmmmdmNmdmmmdmmNNMNmddyo++++++++++++++++/
+---ooooooooooooooooooooooooymNNNNmmmMMMNhdNdyhdNNNNNNNMNNmNmmNNNMMMNhsyyhh+s//////////////:
+---+++++++++++++///++///////+shmNNNMMMMNyohssysymNNNNNNNNNMNNNNNNNmNmhysoodNh+/////////////
+---+++++++++++++///////////////+dMMMMMMNNh+ssyydmNmNmNmmNmNNyhhsmNddddyshNNNmoo/:::::::::::
+---++++o+++++++/////////////////+mMMMMMNmdmsoyddmNmmmmmmmmNmhyyssmddyydNNNmhosss/::::::::--
+---oooooo+++++///////////////////hMMMMMMhhmmhysssyhhmdmdmmdddyysssyhmNNNmhyyysss+/::::::---
+---+++++/////////////////////////hMMMMMNoyhddmmmdhyyyssyyssyyyhhdNMMNNNhydhyyys+dm/::::::::
+---::::://///////////////////////yMMMMMm/hysyyyyo/+shhyydmmmmmNddMMMNmdmmddhyosmMMm::::::::
+--=======================================================================================--
+--=======================================================================================--
+--========================== Alter code below at your own risk! =========================--
+--=======================================================================================--
+--=======================================================================================--
 
 function precast(spell)
     if spell.action_type == "Magic" then
@@ -464,7 +457,7 @@ function precast(spell)
         elseif spell.skill == "Enhancing Magic" then
             equip_with_overrides(set_combine(spell_gear, sets.precast["Enhancing Magic"]))
 
-        --- General fast cast
+        -- General fast cast
         elseif not sets.precast.FastCast == {} then
             equip_with_overrides(set_combine(spell_gear, sets.precast.FastCast))
         end
@@ -477,7 +470,7 @@ function midcast(spell)
 end
 
 function aftercast(spell)
-    if keep_gear_until_next_event == true then
+    if toggle_overrides.keep_gear == true then
         equip_with_overrides(spell)
     elseif player.status == "Engaged" then
         equip_with_overrides(sets.Engaged)
@@ -522,13 +515,13 @@ function self_command(command)
     elseif (string.lower(command) == "help alternate") then
         display_message("Setting to alternate will enable sets.ALTERNATE to override all other swaps")
     elseif (string.lower(command) == "help alternate 2") then
-        display_message("Setting to alternate will enable sets.ALTERNATE_2 to override all other swaps")
+        display_message("Setting to alternate 2 will enable sets.ALTERNATE_2 to override all other swaps")
     elseif (string.lower(command) == "help alternate 3") then
-        display_message("Setting to alternate will enable sets.ALTERNATE_3 to override all other swaps")
+        display_message("Setting to alternate 3 will enable sets.ALTERNATE_3 to override all other swaps")
     elseif (string.lower(command) == "help alternate 4") then
-        display_message("Setting to alternate will enable sets.ALTERNATE_4 to override all other swaps")
+        display_message("Setting to alternate 4 will enable sets.ALTERNATE_4 to override all other swaps")
     elseif (string.lower(command) == "help alternate 5") then
-        display_message("Setting to alternate will enable sets.ALTERNATE_5 to override all other swaps")
+        display_message("Setting to alternate 5 will enable sets.ALTERNATE_5 to override all other swaps")
     elseif (string.lower(command) == "help toggle keep_gear") then
         display_message("Toggling keep_gear will skip Engaged and Idle transitions during battle")
     elseif (string.lower(command):sub(1,10) == "help equip") then
@@ -539,9 +532,9 @@ function self_command(command)
         display_message("//gs c equip Ranged")
         display_message("//gs c equip Resting")
         display_message("//gs c equip Cure")
+        display_message("//gs c equip Elemental Magic")
     elseif (string.lower(command) == "toggle keep_gear") then
-        keep_gear_until_next_event = not keep_gear_until_next_event
-        display_toggle_message(keep_gear_until_next_event, "keep_gear_until_next_event")
+        update_toggle_override("keep_gear")
     elseif (string.lower(command) == "toggle potency") then
         update_toggle_override("potency")
     elseif (string.lower(command) == "toggle defensive") then
@@ -549,9 +542,7 @@ function self_command(command)
     elseif (string.lower(command) == "toggle magic burst") then
         update_toggle_override("magic_burst")
     elseif (string.lower(command) == "primary") then
-        display_message("Using primary gearset")
-        alternate_override = 0
-        equip_status_with_overrides()
+        set_alternate(0)
     elseif (string.lower(command) == "alternate" or string.lower(command) == "alternate 1") then
         set_alternate(1)
     elseif (string.lower(command) == "alternate 2") then
@@ -570,7 +561,11 @@ end
 
 -- Update alternate_override
 function set_alternate(number)
-    display_message("Using alternate gearset " ..number)
+    if number == 0 then
+        display_message("Using primary gearset")
+    else
+        display_message("Using alternate gearset " ..number)
+    end
     alternate_override = number
     equip_status_with_overrides()
 end
@@ -774,7 +769,7 @@ function initalize_setup()
     send_command("bind f10 gs c toggle magic burst")
     send_command("bind f11 gs c toggle defensive")
     alternate_override = 0
-    keep_gear_until_next_event = keep_gear_until_next_event
+    toggle_overrides.keep_gear = keep_gear_until_next_event
     current_status = nil
     macro_setup()
 end
@@ -791,7 +786,8 @@ function get_default_toggle_override_map()
     return {
         potency=false,
         defensive=false,
-        magic_burst=false
+        magic_burst=false,
+        keep_gear=false
     }
 end
 
