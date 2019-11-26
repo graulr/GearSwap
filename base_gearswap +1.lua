@@ -22,16 +22,15 @@ function macro_setup()
     --                                        Macros                                     --
     --                                                                                   --
     --===================================================================================--
-    -- This function runs on file load & character job changes
-    -- Automatically set the macro book & page according to your subjob
+    -- Set the macro book & page according to your subjob
     -- Ex:
     --     set_macro({
     --         DNC={1, 1},
     --         SAM={2, 1},
     --     })
-    -- Would set to book 1 page 1 if your subjob is DNC
-    -- Would set to book 2 page 1 if your subjob is SAM
-
+    -- Would set to book 1 page 1 when your subjob is DNC
+    -- Would set to book 2 page 1 when subjob is SAM
+    --
     -- Modify me!
     --  SUB={Book, Page},
     set_macro({
