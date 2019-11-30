@@ -480,14 +480,13 @@ function aftercast(spell)
     elseif player.status == "Engaged" then
         equip_with_overrides(sets.Engaged)
     elseif player.status == "Resting" then
-        equip_with_overrides(sets.aftercast.Resting)
+        equip(sets.aftercast.Resting)
     else
         equip_with_overrides(sets.Idle)
     end
 end
 
 function status_change(new, old)
-    current_status = new
     if new == "Resting" then
         equip(sets.aftercast.Resting)
     elseif new == "Engaged" then
@@ -579,7 +578,6 @@ function initalize_setup()
     send_command("bind f11 gs c toggle defensive")
     alternate_override = 0
     toggle_overrides.keep_gear = keep_gear_until_next_event
-    current_status = nil
     stored_macro_map = nil
     macro_setup()
 end
@@ -803,13 +801,13 @@ end
 
 -- Equip the appropriate gear for the current status factoring in overrides
 function equip_status_with_overrides()
-    gearset = sets.Idle
-    if current_status == "Engaged" then
-        gearset = sets.Engaged
-    elseif current_status == "Resting" then
-        gearset = sets.aftercast.Resting
+    if player.status == "Idle" then
+        equip_with_overrides(sets.Idle)
+    elseif player.status == "Engaged" then
+        equip_with_overrides(sets.Engaged)
+    elseif player.status == "Resting" then
+        equip(sets.aftercast.Resting)
     end
-    equip_with_overrides(gearset)
 end
 
 function display_message(message)
