@@ -368,7 +368,7 @@ function get_sets()
 
      ------------------------------------ End of gearsets ----------------------------------
     -- Sets macros and other states on load
-    initalize_setup()
+    initialize_setup()
 end
 
 --=======================================================================================--
@@ -583,7 +583,7 @@ end
 --=======================================================================================--
 
 -- Initialize state variables, bind any keys, & setup macros
-function initalize_setup()
+function initialize_setup()
     toggle_overrides = get_default_toggle_override_map()
     send_command("bind f9 gs c toggle potency")
     send_command("bind f10 gs c toggle magic burst")
@@ -849,11 +849,11 @@ function display_message(message)
     add_to_chat(8, message)
 end
 
-function display_toggle_message(condition, descripton)
+function display_toggle_message(condition, description)
     if condition then
-        display_message("Enabling " .. descripton .. " override")
+        display_message("Enabling " .. description .. " override")
     else
-        display_message("Disabling " .. descripton .. " override")
+        display_message("Disabling " .. description .. " override")
     end
 end
 
