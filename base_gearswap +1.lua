@@ -23,7 +23,7 @@ function macro_setup()
     --                                                                                   --
     --===================================================================================--
     -- Set the macro book & page according to your subjob
-    -- Ex:
+    -- Example:
     --     set_macro({
     --         DNC={1, 1},
     --         SAM={2, 1},
@@ -63,7 +63,7 @@ function get_sets()
     --                                    Override Sets                                  --
     --                                                                                   --
     --===================================================================================--
-    -- Sets that override when enabled (except for sets.aftercast.Resting)
+    -- Sets that override when toggled (except for resting)
 
     -- A set that focuses purely on potency of damage/healing
     -- Press f9 in game to toggle:
@@ -77,21 +77,21 @@ function get_sets()
     -- Press f11 in game to toggle:
     sets.Defensive = {}
 
-
-    -- Sets that override all other sets once //gs c alternate has been run
-    -- //gs c primary will set it back to normal
+    -- General override sets for whatever you want
+    -- Ex: alternate weapons, treasure hunter sets, skillup sets, etc...
+    -- Press windows key + 1 in game to toggle
     sets.ALTERNATE = {}
 
-    -- //gs c alternate 2
+    -- Press windows key + 2 in game to toggle
     sets.ALTERNATE_2 = {}
 
-    -- //gs c alternate 3
+    -- Press windows key + 3 in game to toggle
     sets.ALTERNATE_3 = {}
 
-    -- //gs c alternate 4
+    -- Press windows key + 4 in game to toggle
     sets.ALTERNATE_4 = {}
 
-    -- //gs c alternate 5
+    -- Press windows key + 5 in game to toggle
     sets.ALTERNATE_5 = {}
 
 
@@ -450,6 +450,13 @@ keep_gear_until_next_event = false
 --=======================================================================================--
 --=======================================================================================--
 
+
+--=======================================================================================--
+--                                                                                       --
+--                       Functions automatically called by gearswap                      --
+--                                                                                       --
+--=======================================================================================--
+
 function precast(spell)
     if spell.action_type == "Magic" then
         spell_gear = get_gear_for_spell(spell)
@@ -502,34 +509,33 @@ function sub_job_change(new, old)
 end
 
 function self_command(command)
+    command = string.lower(command)
+
     -- Help commands
-    if (string.lower(command) == "help") then
+    if (command == "help") then
         display_message("Command options:")
-        display_message("//gs c primary")
-        display_message("//gs c alternate 1")
-        display_message("//gs c alternate 2")
-        display_message("//gs c alternate 3")
-        display_message("//gs c alternate 4")
-        display_message("//gs c alternate 5")
+        display_message("//gs c toggle alternate 1")
+        display_message("//gs c toggle alternate 2")
+        display_message("//gs c toggle alternate 3")
+        display_message("//gs c toggle alternate 4")
+        display_message("//gs c toggle alternate 5")
         display_message("//gs c toggle keep_gear")
         display_message("//gs c equip spell_name")
         display_message("--------------------------------")
         display_message("Type //gs c help <option> to learn more about that option")
-    elseif (string.lower(command) == "help primary") then
-        display_message("Setting to primary will disable any sets.ALTERNATE override behavior")
-    elseif (string.lower(command) == "help alternate") then
-        display_message("Setting to alternate will enable sets.ALTERNATE to override all other swaps")
-    elseif (string.lower(command) == "help alternate 2") then
-        display_message("Setting to alternate 2 will enable sets.ALTERNATE_2 to override all other swaps")
-    elseif (string.lower(command) == "help alternate 3") then
-        display_message("Setting to alternate 3 will enable sets.ALTERNATE_3 to override all other swaps")
-    elseif (string.lower(command) == "help alternate 4") then
-        display_message("Setting to alternate 4 will enable sets.ALTERNATE_4 to override all other swaps")
-    elseif (string.lower(command) == "help alternate 5") then
-        display_message("Setting to alternate 5 will enable sets.ALTERNATE_5 to override all other swaps")
-    elseif (string.lower(command) == "help toggle keep_gear") then
+    elseif (command == "help toggle alternate 1") then
+        display_message("Toggles sets.ALTERNATE to override all other swaps")
+    elseif (command == "help toggle alternate 2") then
+        display_message("Toggles sets.ALTERNATE_2 to override all other swaps")
+    elseif (command == "help toggle alternate 3") then
+        display_message("Toggles sets.ALTERNATE_3 to override all other swaps")
+    elseif (command == "help toggle alternate 4") then
+        display_message("Toggles sets.ALTERNATE_4 to override all other swaps")
+    elseif (command == "help toggle alternate 5") then
+        display_message("Toggles sets.ALTERNATE_5 to override all other swaps")
+    elseif (command == "help toggle keep_gear") then
         display_message("Toggling keep_gear will skip Engaged and Idle transitions during battle")
-    elseif (string.lower(command):sub(1,10) == "help equip") then
+    elseif (command:sub(1,10) == "help equip") then
         display_message("Equips any set that matches the spell_name supplied (capitalization matters)")
         display_message("--------------------------------")
         display_message("Examples:")
@@ -540,28 +546,27 @@ function self_command(command)
         display_message("//gs c equip Elemental Magic")
 
     -- Toggle commands
-    elseif (string.lower(command) == "toggle keep_gear") then
+    elseif (command == "toggle keep_gear") then
         update_toggle_override("keep_gear")
-    elseif (string.lower(command) == "toggle potency") then
+    elseif (command == "toggle potency") then
         update_toggle_override("potency")
-    elseif (string.lower(command) == "toggle defensive") then
+    elseif (command == "toggle defensive") then
         update_toggle_override("defensive")
-    elseif (string.lower(command) == "toggle magic burst") then
+    elseif (command == "toggle magic burst") then
         update_toggle_override("magic_burst")
-
-    -- Alternate commands
-    elseif (string.lower(command) == "primary") then
-        set_alternate(0)
-    elseif (string.lower(command) == "alternate" or string.lower(command) == "alternate 1") then
-        set_alternate(1)
-    elseif (string.lower(command) == "alternate 2") then
-        set_alternate(2)
-    elseif (string.lower(command) == "alternate 3") then
-        set_alternate(3)
-    elseif (string.lower(command) == "alternate 4") then
-        set_alternate(4)
-    elseif (string.lower(command) == "alternate 5") then
-        set_alternate(5)
+    elseif (command:sub(1,16) == "toggle alternate") then
+        alternate_value = command:sub(18, 19)
+        if (alternate_value == "1") then
+            toggle_alternate_override(1)
+        elseif (alternate_value == "2") then
+            toggle_alternate_override(2)
+        elseif (alternate_value == "3") then
+            toggle_alternate_override(3)
+        elseif (alternate_value == "4") then
+            toggle_alternate_override(4)
+        elseif (alternate_value == "5") then
+            toggle_alternate_override(5)
+        end
 
     -- Equip commands
     elseif (command:sub(1,6) == "equip ") then
@@ -570,12 +575,26 @@ function self_command(command)
     end
 end
 
+
+--=======================================================================================--
+--                                                                                       --
+--                                  Helper methods                                       --
+--                                                                                       --
+--=======================================================================================--
+
 -- Initialize state variables, bind any keys, & setup macros
 function initalize_setup()
     toggle_overrides = get_default_toggle_override_map()
     send_command("bind f9 gs c toggle potency")
     send_command("bind f10 gs c toggle magic burst")
     send_command("bind f11 gs c toggle defensive")
+    send_command("bind f12 gs c toggle alternate 1")
+    -- @ represents the windows key
+    send_command("bind @1 gs c toggle alternate 1")
+    send_command("bind @2 gs c toggle alternate 2")
+    send_command("bind @3 gs c toggle alternate 3")
+    send_command("bind @4 gs c toggle alternate 4")
+    send_command("bind @5 gs c toggle alternate 5")
     alternate_override = 0
     toggle_overrides.keep_gear = keep_gear_until_next_event
     stored_macro_map = nil
@@ -586,10 +605,17 @@ end
 function file_unload()
     send_command("unbind f9")
     send_command("unbind f10")
-    send_command("unbind f11")
+    send_command("unbind f11")  
+    send_command("unbind f12")
+    -- @ represents the windows key
+    send_command("unbind @1")
+    send_command("unbind @2")
+    send_command("unbind @3")
+    send_command("unbind @4")
+    send_command("unbind @5")
 end
 
--- Get a new map with all values initalized to false
+-- Get a new default toggle map with all values initalized to false
 function get_default_toggle_override_map()
     return {
         potency=false,
@@ -599,7 +625,7 @@ function get_default_toggle_override_map()
     }
 end
 
--- Update toggle_override on a fresh map and dispaly a message
+-- Update toggle_override on a fresh map and display a message
 function update_toggle_override(key)
     current_value = toggle_overrides[key]
     toggle_overrides = get_default_toggle_override_map()
@@ -608,15 +634,24 @@ function update_toggle_override(key)
     equip_status_with_overrides()
 end
 
--- Update alternate_override
+-- Update the alternate_override value
 function set_alternate(number)
     if number == 0 then
         display_message("Using primary gearset")
     else
-        display_message("Using alternate gearset " ..number)
+        display_message("Enabling alternate override " ..number)
     end
     alternate_override = number
     equip_status_with_overrides()
+end
+
+-- Toggle the alternate override between 0 and provided number
+function toggle_alternate_override(number)
+    if (alternate_override == number) then
+        set_alternate(0)
+    else
+        set_alternate(number)
+    end
 end
 
 -- Get the appropriate gearset for the spell
@@ -799,7 +834,7 @@ function equip_with_overrides(gearset)
     equip(combine_overrides(gearset))
 end
 
--- Equip the appropriate gear for the current status factoring in overrides
+-- Equip gear for the current status factoring in overrides
 function equip_status_with_overrides()
     if player.status == "Idle" then
         equip_with_overrides(sets.Idle)
