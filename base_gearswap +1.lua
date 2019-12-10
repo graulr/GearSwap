@@ -54,6 +54,7 @@ function get_sets()
 
     -- A set of gear to engage the monster in
     -- If weapons differ from sets.Idle TP will be lost after each fight
+    -- Press the windows key + 6 in game to view
     sets.Engaged = set_combine(IDLE_SET, {})
     ENGAGED_SET = sets.Engaged
 
@@ -64,6 +65,7 @@ function get_sets()
     --                                                                                   --
     --===================================================================================--
     -- Sets that override when toggled (except for resting)
+    -- toggle a 2nd time to disable
 
     -- A set that focuses purely on potency of damage/healing
     -- Press f9 in game to toggle:
@@ -82,16 +84,16 @@ function get_sets()
     -- Press windows key + 1 in game to toggle
     sets.ALTERNATE = {}
 
-    -- Press windows key + 2 in game to toggle
+    -- Press the windows key + 2 in game to toggle
     sets.ALTERNATE_2 = {}
 
-    -- Press windows key + 3 in game to toggle
+    -- Press the windows key + 3 in game to toggle
     sets.ALTERNATE_3 = {}
 
-    -- Press windows key + 4 in game to toggle
+    -- Press the windows key + 4 in game to toggle
     sets.ALTERNATE_4 = {}
 
-    -- Press windows key + 5 in game to toggle
+    -- Press the windows key + 5 in game to toggle
     sets.ALTERNATE_5 = {}
 
 
@@ -328,13 +330,13 @@ function get_sets()
     -- Sets you might not be using for content but are fun to walk
     -- around in. Equipped via: //gs c equip AF
 
-    -- Artifact set
+    -- Press the windows_key + 8 in game
     sets.AF = {}
 
-    -- //gs c equip AF2
+    -- Press the windows_key + 9 in game
     sets.AF2 = {}
 
-    -- //gs c equip AF3
+    -- Press the windows_key + 0 in game
     sets.AF3 = {}
 
 
@@ -343,26 +345,37 @@ function get_sets()
     --                                      Craft Sets                                   --
     --                                                                                   --
     --===================================================================================--
-    -- Sets for crafting. Equipped via: //gs c equip Alchemy
+    -- Sets for crafting. Equipped via hotkeys
 
-    sets.Fishing = {}
 
-    sets.Woodworking = {}
-
-    sets.Smithing = {}
-
-    sets.Goldsmithing = {}
-
-    sets.Clothcraft = {}
-
-    sets.Leathercraft = {}
-
-    sets.Bonecraft = {}
-
+    -- Press the windows_key + a in game
     sets.Alchemy = {}
 
+    -- Press the windows_key + b in game
+    sets.Bonecraft = {}
+
+    -- Press the windows_key + c in game
+    sets.Clothcraft = {}
+
+    -- Press the windows_key + c + o in game
     sets.Cooking = {}
 
+    -- Press the windows_key + f in game
+    sets.Fishing = {}
+
+    -- Press the windows_key + g in game
+    sets.Goldsmithing = {}
+
+    -- Press the windows_key + l in game
+    sets.Leathercraft = {}
+
+    -- Press the windows_key + w in game
+    sets.Woodworking = {}
+
+    -- Press the windows_key + s in game
+    sets.Smithing = {}
+
+    -- Press the windows_key + s + y in game
     sets.Synergy = {}
 
 
@@ -509,10 +522,10 @@ function sub_job_change(new, old)
 end
 
 function self_command(command)
-    command = string.lower(command)
+    lower_command = string.lower(command)
 
     -- Help commands
-    if (command == "help") then
+    if (lower_command == "help") then
         display_message("Command options:")
         display_message("//gs c toggle alternate 1")
         display_message("//gs c toggle alternate 2")
@@ -523,19 +536,19 @@ function self_command(command)
         display_message("//gs c equip spell_name")
         display_message("--------------------------------")
         display_message("Type //gs c help <option> to learn more about that option")
-    elseif (command == "help toggle alternate 1") then
+    elseif (lower_command == "help toggle alternate 1") then
         display_message("Toggles sets.ALTERNATE to override all other swaps")
-    elseif (command == "help toggle alternate 2") then
+    elseif (lower_command == "help toggle alternate 2") then
         display_message("Toggles sets.ALTERNATE_2 to override all other swaps")
-    elseif (command == "help toggle alternate 3") then
+    elseif (lower_command == "help toggle alternate 3") then
         display_message("Toggles sets.ALTERNATE_3 to override all other swaps")
-    elseif (command == "help toggle alternate 4") then
+    elseif (lower_command == "help toggle alternate 4") then
         display_message("Toggles sets.ALTERNATE_4 to override all other swaps")
-    elseif (command == "help toggle alternate 5") then
+    elseif (lower_command == "help toggle alternate 5") then
         display_message("Toggles sets.ALTERNATE_5 to override all other swaps")
-    elseif (command == "help toggle keep_gear") then
+    elseif (lower_command == "help toggle keep_gear") then
         display_message("Toggling keep_gear will skip Engaged and Idle transitions during battle")
-    elseif (command:sub(1,10) == "help equip") then
+    elseif (lower_command:sub(1,10) == "help equip") then
         display_message("Equips any set that matches the spell_name supplied (capitalization matters)")
         display_message("--------------------------------")
         display_message("Examples:")
@@ -546,16 +559,16 @@ function self_command(command)
         display_message("//gs c equip Elemental Magic")
 
     -- Toggle commands
-    elseif (command == "toggle keep_gear") then
+    elseif (lower_command == "toggle keep_gear") then
         update_toggle_override("keep_gear")
-    elseif (command == "toggle potency") then
+    elseif (lower_command == "toggle potency") then
         update_toggle_override("potency")
-    elseif (command == "toggle defensive") then
+    elseif (lower_command == "toggle defensive") then
         update_toggle_override("defensive")
-    elseif (command == "toggle magic burst") then
+    elseif (lower_command == "toggle magic burst") then
         update_toggle_override("magic_burst")
-    elseif (command:sub(1,16) == "toggle alternate") then
-        alternate_value = command:sub(18, 19)
+    elseif (lower_command:sub(1,16) == "toggle alternate") then
+        alternate_value = lower_command:sub(18, 19)
         if (alternate_value == "1") then
             toggle_alternate_override(1)
         elseif (alternate_value == "2") then
@@ -569,7 +582,8 @@ function self_command(command)
         end
 
     -- Equip commands
-    elseif (command:sub(1,6) == "equip ") then
+    elseif (lower_command:sub(1,6) == "equip ") then
+        -- Use the original command as get_gear_for_spell requires capitalization
         display_message("Equipping " .. command:sub(7))
         equip(get_gear_for_spell(nil, command:sub(7)))
     end
@@ -595,6 +609,21 @@ function initialize_setup()
     send_command("bind @3 gs c toggle alternate 3")
     send_command("bind @4 gs c toggle alternate 4")
     send_command("bind @5 gs c toggle alternate 5")
+    send_command("bind @7 gs c equip Engaged")
+    send_command("bind @8 gs c equip AF")
+    send_command("bind @9 gs c equip AF2")
+    send_command("bind @0 gs c equip AF3")
+    send_command("bind @numpad1 gs c equip Alchemy")
+    send_command("bind @numpad2 gs c equip Bonecraft")
+    send_command("bind @numpad3 gs c equip Clothcraft")
+    send_command("bind @numpad4 gs c equip Cooking")
+    send_command("bind @numpad5 gs c equip Fishing")
+    send_command("bind @numpad6 gs c equip Goldsmithing")
+    send_command("bind @numpad7 gs c equip Leathercraft")
+    send_command("bind @numpad8 gs c equip Smithing")
+    send_command("bind @numpad9 gs c equip Synergy")
+    send_command("bind @numpad0 gs c equip Woodworking")
+
     alternate_override = 0
     toggle_overrides.keep_gear = keep_gear_until_next_event
     stored_macro_map = nil
@@ -613,6 +642,20 @@ function file_unload()
     send_command("unbind @3")
     send_command("unbind @4")
     send_command("unbind @5")
+    send_command("unbind @7")
+    send_command("unbind @8")
+    send_command("unbind @9")
+    send_command("unbind @0")
+    send_command("unbind @numpad1")
+    send_command("unbind @numpad2")
+    send_command("unbind @numpad3")
+    send_command("unbind @numpad4")
+    send_command("unbind @numpad5")
+    send_command("unbind @numpad6")
+    send_command("unbind @numpad7")
+    send_command("unbind @numpad8")
+    send_command("unbind @numpad9")
+    send_command("unbind @numpad0")
 end
 
 -- Get a new default toggle map with all values initalized to false
