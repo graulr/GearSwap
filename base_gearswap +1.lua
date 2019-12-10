@@ -68,15 +68,15 @@ function get_sets()
     -- toggle a 2nd time to disable
 
     -- A set that focuses purely on potency of damage/healing
-    -- Press f9 in game to toggle:
+    -- Press f9 in game to toggle
     sets.Potency = {}
 
     -- A set that focuses purely on magic bursting
-    -- Press f10 in game to toggle:
+    -- Press f10 in game to toggle
     sets.Magic_Burst = {}
 
     -- A set that focuses purely on defense
-    -- Press f11 in game to toggle:
+    -- Press f11 in game to toggle
     sets.Defensive = {}
 
     -- General override sets for whatever you want
@@ -345,37 +345,36 @@ function get_sets()
     --                                      Craft Sets                                   --
     --                                                                                   --
     --===================================================================================--
-    -- Sets for crafting. Equipped via hotkeys
+    -- Sets for crafting
 
-
-    -- Press the windows_key + a in game
+    -- Press the windows_key + numpad 1 in game
     sets.Alchemy = {}
 
-    -- Press the windows_key + b in game
+    -- Press the windows_key + numpad 2 in game
     sets.Bonecraft = {}
 
-    -- Press the windows_key + c in game
+    -- Press the windows_key + numpad 3 in game
     sets.Clothcraft = {}
 
-    -- Press the windows_key + c + o in game
+    -- Press the windows_key + numpad 4 in game
     sets.Cooking = {}
 
-    -- Press the windows_key + f in game
+    -- Press the windows_key + numpad 5 in game
     sets.Fishing = {}
 
-    -- Press the windows_key + g in game
+    -- Press the windows_key + numpad 6 in game
     sets.Goldsmithing = {}
 
-    -- Press the windows_key + l in game
+    -- Press the windows_key + numpad 7 in game
     sets.Leathercraft = {}
 
-    -- Press the windows_key + w in game
+    -- Press the windows_key + numpad 8 in game
     sets.Woodworking = {}
 
-    -- Press the windows_key + s in game
+    -- Press the windows_key + numpad 9 in game
     sets.Smithing = {}
 
-    -- Press the windows_key + s + y in game
+    -- Press the windows_key + numpad 0 in game
     sets.Synergy = {}
 
 
