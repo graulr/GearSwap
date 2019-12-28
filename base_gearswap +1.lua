@@ -413,9 +413,9 @@ keep_gear_until_next_event = false
 -- ......'''',,;;cllccokO0XKOkk00O0KK0kkkOkO00xdddxxOKXXX00KXXXXXXXXXXXXKKXX0dcc::;,,,'''..
 -- ......''',,,;;:clllokxkKXKKKXXKOO00kkOKKKXKxooddxk0KKKK0XNXXXNNXXXXXXKXNKxlcc:;;;,,'''..
 -- ......''',,,;;:clooolloOXXXXXX0OkkOOkkO00K0xdddxkOO0KKKKXNNNNNNNNNNNNXNNOolcc:;;;,,''...
--- .....'''',,,;;cl_/       \_OKXO_/  _____/___________   __ __|  |_______NN0dcc::;,,,'''..
--- .....'''',,,,:c_|   The   |_xk_/   \  __\_  __ \__  \ |  |  \  |\_  __ \N0dcc::;,,,'''..
--- .....'''',,,:cl_|   Old   |_xc_\    \_\  \  | \// __ \|  |  /  |_|  | \/ddolc:;,,'......
+-- .....'''',,,;;cl_/       \_NNXN_/  _____/___________   __ __|  |_______NN0dcc::;,,,'''..
+-- .....'''',,,,:c_|   The   |_XK_/   \  __\_  __ \__  \ |  |  \  |\_  __ \N0dcc::;,,,'''..
+-- .....'''',,,:cl_|   Old   |_XC_\    \_\  \  | \// __ \|  |  /  |_|  | \/ddolc:;,,'......
 ---.....'''',,,:l;d_\_Guard_/_XkK0_\______  /__|  (____  /____/|____/__|NNNNOolcc::;;,,''..
 -- .....'',,;;::ccllodxOOxxkK0xooooxxOOOOOOOO0OkOKNK0KK0000KXK0KX0KNNNNNNNXkddolc:;,,'.....
 -- ....''',;;::clooddxkOKXKOO00kkOOOkxkxddxOKNWWMMMWNNNXKNWWWWWWWWWWWWWNNNXOxxolc:;,''.....
@@ -601,6 +601,33 @@ function self_command(command)
     end
 end
 
+function file_unload()
+    send_command("unbind f9")
+    send_command("unbind f10")
+    send_command("unbind f11")  
+    send_command("unbind f12")
+    -- @ represents the windows key
+    send_command("unbind @1")
+    send_command("unbind @2")
+    send_command("unbind @3")
+    send_command("unbind @4")
+    send_command("unbind @5")
+    send_command("unbind @7")
+    send_command("unbind @8")
+    send_command("unbind @9")
+    send_command("unbind @0")
+    send_command("unbind @numpad1")
+    send_command("unbind @numpad2")
+    send_command("unbind @numpad3")
+    send_command("unbind @numpad4")
+    send_command("unbind @numpad5")
+    send_command("unbind @numpad6")
+    send_command("unbind @numpad7")
+    send_command("unbind @numpad8")
+    send_command("unbind @numpad9")
+    send_command("unbind @numpad0")
+end
+
 
 --=======================================================================================--
 --                                                                                       --
@@ -640,34 +667,6 @@ function initialize_setup()
     toggle_overrides.keep_gear = keep_gear_until_next_event
     stored_macro_map = nil
     macro_setup()
-end
-
--- Unbind all keys
-function file_unload()
-    send_command("unbind f9")
-    send_command("unbind f10")
-    send_command("unbind f11")  
-    send_command("unbind f12")
-    -- @ represents the windows key
-    send_command("unbind @1")
-    send_command("unbind @2")
-    send_command("unbind @3")
-    send_command("unbind @4")
-    send_command("unbind @5")
-    send_command("unbind @7")
-    send_command("unbind @8")
-    send_command("unbind @9")
-    send_command("unbind @0")
-    send_command("unbind @numpad1")
-    send_command("unbind @numpad2")
-    send_command("unbind @numpad3")
-    send_command("unbind @numpad4")
-    send_command("unbind @numpad5")
-    send_command("unbind @numpad6")
-    send_command("unbind @numpad7")
-    send_command("unbind @numpad8")
-    send_command("unbind @numpad9")
-    send_command("unbind @numpad0")
 end
 
 -- Get a new default toggle map with all values initalized to false
