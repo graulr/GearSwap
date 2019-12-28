@@ -685,7 +685,7 @@ function update_toggle_override(key)
     toggle_overrides = get_default_toggle_override_map()
     toggle_overrides[key] = not current_value
     display_toggle_message(toggle_overrides[key], key)
-    equip_status_with_overrides()
+    equip_factoring_status_with_overrides()
 end
 
 -- Update the alternate_override value
@@ -696,7 +696,7 @@ function set_alternate(number)
         display_message("Enabling alternate override " ..number)
     end
     alternate_override = number
-    equip_status_with_overrides()
+    equip_factoring_status_with_overrides()
 end
 
 -- Toggle the alternate override between 0 and provided number
@@ -889,7 +889,7 @@ function equip_with_overrides(gearset)
 end
 
 -- Equip gear for the current status factoring in overrides
-function equip_status_with_overrides()
+function equip_factoring_status_with_overrides()
     if player.status == "Idle" then
         equip_with_overrides(sets.Idle)
     elseif player.status == "Engaged" then
