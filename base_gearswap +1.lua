@@ -322,6 +322,29 @@ function get_sets()
     sets.aftercast.Resting = set_combine(IDLE_SET, {})
 
 
+  --=====================================================================================--
+    --                                                                                   --
+    --                                 Status Effect Sets                                --
+    --                                                                                   --
+    --===================================================================================--
+    -- Sets that swap in when the status effect lands & swap out when the status resolves
+
+    -- Will also swap for flash
+    sets.Blind = {}
+
+    sets.Doom = {}
+
+    sets.Silence = {}
+
+    sets.Slow = {}
+
+    sets.Sleep = {}
+
+    sets.Paralyze = {}
+
+    sets.Poison = {}
+
+
     --===================================================================================--
     --                                                                                   --
     --                                     Cosmetic Sets                                 --
@@ -421,15 +444,15 @@ keep_gear_until_next_event = false
 -- ....''',;;::clooddxkOKXKOO00kkOOOkxkxddxOKNWWMMMWNNNXKNWWWWWWWWWWWWWNNNXOxxolc:;,''.....
 -- .''''',,;;:ccloddxxkOKNX0O00OOOOkddkkxxxk0NWWWMMWWNXKKNNWWWWWWWMMMWWWNNX0kxdlc:;,''.....
 -- '''''',,;;:cllodxkkO0KNNK0OOOOOOxodkxdddxk0XNNNXOddkOO0KWMMMWMMMMMMWWXXX0kxdlc;,,'''....
--- ''''',,,;;:cclodxkO00XNNX0OO0Oxxdk0ko:;,'',:coOx;'',;;;c0MMMWMMMMMMMWXNNKkxol:;;,,'''...
--- ''',,,,,;;:cclodxO00KXXXKK00KOdxOKKx;.........;c;......:0MMMMMMMMMMWWNWN0kdoc:;;,,,''''.
--- ''',,,,,;;::clodxO0KXNNNNXK00kdkKX0c...''.'....:;''.'';lxKWMMMMWWWWWWWWN0xolc::;;;,,,,,'
--- ,,,,,,,;;;::clodxk0KXNNNNNNKOxdO0Oo'...',;,....''..':loxOkKWMWWWWWWWWWWN0xolcc:::;;;;;;;
--- ,,,,,,;;;;::cclodkOKXNNNXKKKkxkOxd:. .',;;,,'......lOkx0NWWWWWNWNNWWWNNXOxollcc::::;;;;;
--- ,,,,,,;;;;;::ccodxk0XNWNNXXX0OOOOd,. .',,,,,'. ...;dxxkKWMMMWWWWNNNNNNNKkdollcc:::;;;;;;
--- ,,,,,,,,;;;;::ccldxOKXWMWNXKXKO0KOc'...''''....'.,oooxKWMMMMWWWWWNXNNN0kdollcc:::;;;;;;;
--- ,,,,,,,,,,;;;::ccloxOKNWMWNXKXKO00dc:'.'''''.'::,cdod0WMMMMWWWWWWNNNXOxdolcc:::;;;;;;;;;
--- ;,,,,,,,,;;;;;:::cldk0XWMMWWXKK0OOxl;'.''''..',cldxxkKWMMMWWWWWWWWWXOkdolcc::;;;;;::::::
+-- ''''',,,;;:cclodxkO00XNNX0OO0Oxxdk0ko:;,'',:coOx;x.,;;;,0MMMWMMMMMMMWXNNKkxol:;;,,'''...
+-- ''',,,,,;;:cclodxO00KXXXKK00KOdxOKKx;.........;c;..;...;0MMMMMMMMMMWWNWN0kdoc:;;,,,''''.
+-- ''',,,,,;;::clodxO0KXNNNNXK00kdkKX0c...........:;..,;;;,xKWMMMMWWWWWWWWN0xolc::;;;,,,,,;
+-- ,,,,,,,;;;::clodxk0KXNNNNNNKOxdO0Oo'............'.,;oxOkKWMWWWWWWWWMWWWN0xolcc:::;;;;;;;
+-- ,,,,,,;;;;::cclodkOKXNNNXKKKkxkOxd:..............,,.Okx0NWWWWWNWNNWWWNNXOxollcc::::;;;;;
+-- ,,,,,,;;;;;::ccodxk0XNWNNXXX0OOOOd,..............,;dxxkKWMMMWWWWNNNNNNNKkdollcc:::;;;;;;
+-- ,,,,,,,,;;;;::ccldxOKXWMWNXKXKO0KOc'...........'.,oooxKWMMMMWWWWWNXNNN0kdollcc:::;;;;;;;
+-- ,,,,,,,,,,;;;::ccloxOKNWMWNXKXKO00dc:'.......'::,cdod0WMMMMWWWWWWNNNXOxdolcc:::;;;;;;;;;
+-- ;,,,,,,,,;;;;;:::cldk0XWMMWWXKK0OOxl;'.......',cldxxkKWMMMWWWWWWWWWXOkdolcc::;;;;;::::::
 -- ;;;;;;;;;;;;;;::clloxkKNNXK0kl;:lool:,'.....',;clol;,cx0KKXNWWWWWWX0kxdolccc:::::c:::ccc
 -- :::::::::::::::ccloodxOkolxd:'...';:,'''..'''',;:,....;oxldXMWMMWNKOkdollcccccccccclllll
 -- lccccccccccccccclloodxkkl,,'......';;.........';,.......,,xWMMMMWX0kxdoolllllllllooooooo
@@ -528,6 +551,31 @@ function status_change(new, old)
     end
 end
 
+function buff_change(buff, gain, details)
+    current_set = {}
+
+    if (gain == true) then
+        if (buff == "blind" or buff == "flash") then
+            current_set = sets.Blind
+        elseif (buff == "doom") then
+            current_set = sets.Doom
+        elseif (buff == "paralyze") then
+            current_set = sets.Paralyze
+        elseif (buff == "poison") then
+            current_set = sets.Poison
+        elseif (buff == "silence") then
+            current_set = sets.Silence
+        elseif (buff == "sleep") then
+            current_set = sets.Sleep
+        elseif (buff == "slow") then
+            current_set = sets.Slow
+        end
+    else
+        equip_status_with_overrides()
+    end
+    equip_status_with_overrides(current_set)
+end
+
 function sub_job_change(new, old)
     macro_setup()
     equip_with_overrides(sets.Idle)
@@ -601,33 +649,6 @@ function self_command(command)
     end
 end
 
-function file_unload()
-    send_command("unbind f9")
-    send_command("unbind f10")
-    send_command("unbind f11")  
-    send_command("unbind f12")
-    -- @ represents the windows key
-    send_command("unbind @1")
-    send_command("unbind @2")
-    send_command("unbind @3")
-    send_command("unbind @4")
-    send_command("unbind @5")
-    send_command("unbind @7")
-    send_command("unbind @8")
-    send_command("unbind @9")
-    send_command("unbind @0")
-    send_command("unbind @numpad1")
-    send_command("unbind @numpad2")
-    send_command("unbind @numpad3")
-    send_command("unbind @numpad4")
-    send_command("unbind @numpad5")
-    send_command("unbind @numpad6")
-    send_command("unbind @numpad7")
-    send_command("unbind @numpad8")
-    send_command("unbind @numpad9")
-    send_command("unbind @numpad0")
-end
-
 
 --=======================================================================================--
 --                                                                                       --
@@ -669,6 +690,34 @@ function initialize_setup()
     macro_setup()
 end
 
+-- Unbind all keys
+function file_unload()
+    send_command("unbind f9")
+    send_command("unbind f10")
+    send_command("unbind f11")  
+    send_command("unbind f12")
+    -- @ represents the windows key
+    send_command("unbind @1")
+    send_command("unbind @2")
+    send_command("unbind @3")
+    send_command("unbind @4")
+    send_command("unbind @5")
+    send_command("unbind @7")
+    send_command("unbind @8")
+    send_command("unbind @9")
+    send_command("unbind @0")
+    send_command("unbind @numpad1")
+    send_command("unbind @numpad2")
+    send_command("unbind @numpad3")
+    send_command("unbind @numpad4")
+    send_command("unbind @numpad5")
+    send_command("unbind @numpad6")
+    send_command("unbind @numpad7")
+    send_command("unbind @numpad8")
+    send_command("unbind @numpad9")
+    send_command("unbind @numpad0")
+end
+
 -- Get a new default toggle map with all values initalized to false
 function get_default_toggle_override_map()
     return {
@@ -685,7 +734,7 @@ function update_toggle_override(key)
     toggle_overrides = get_default_toggle_override_map()
     toggle_overrides[key] = not current_value
     display_toggle_message(toggle_overrides[key], key)
-    equip_factoring_status_with_overrides()
+    equip_status_with_overrides()
 end
 
 -- Update the alternate_override value
@@ -696,7 +745,7 @@ function set_alternate(number)
         display_message("Enabling alternate override " ..number)
     end
     alternate_override = number
-    equip_factoring_status_with_overrides()
+    equip_status_with_overrides()
 end
 
 -- Toggle the alternate override between 0 and provided number
@@ -889,11 +938,15 @@ function equip_with_overrides(gearset)
 end
 
 -- Equip gear for the current status factoring in overrides
-function equip_factoring_status_with_overrides()
+function equip_status_with_overrides(gearset)
+    if (gearset == nil) then
+        gearset = {}
+    end
+
     if player.status == "Idle" then
-        equip_with_overrides(sets.Idle)
+        equip_with_overrides(set_combine(sets.Idle, gearset))
     elseif player.status == "Engaged" then
-        equip_with_overrides(sets.Engaged)
+        equip_with_overrides(set_combine(sets.Engaged, gearset))
     elseif player.status == "Resting" then
         equip(sets.aftercast.Resting)
     end
