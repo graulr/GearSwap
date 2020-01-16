@@ -322,14 +322,15 @@ function get_sets()
     sets.aftercast.Resting = set_combine(IDLE_SET, {})
 
 
-  --=====================================================================================--
+    --===================================================================================--
     --                                                                                   --
-    --                                 Status Effect Sets                                --
+    --                                  Status Effect Sets                               --
     --                                                                                   --
     --===================================================================================--
-    -- Sets that swap in when the status effect lands & swap out when the status resolves
+    -- Sets that will be swapped in when the status effect lands on the player
+    -- & swapped out when the status is removed
 
-    -- Will also swap for flash
+    -- Will also swap for flash & accuracy down
     sets.Blind = {}
 
     sets.Doom = {}
@@ -343,6 +344,8 @@ function get_sets()
     sets.Paralyze = {}
 
     sets.Poison = {}
+
+    sets.Attack_Down = {}
 
 
     --===================================================================================--
@@ -555,7 +558,10 @@ function buff_change(buff, gain, details)
     current_set = {}
 
     if (gain == true) then
-        if (buff == "blind" or buff == "flash") then
+        buff = string.lower(buff)
+        if (buff == "blind" or
+            buff == "flash" or
+            buff == "accuracy down") then
             current_set = sets.Blind
         elseif (buff == "doom") then
             current_set = sets.Doom
@@ -569,6 +575,8 @@ function buff_change(buff, gain, details)
             current_set = sets.Sleep
         elseif (buff == "slow") then
             current_set = sets.Slow
+        elseif (buff == "attack down") then
+            current_set = sets.Attack_Down
         end
     else
         equip_status_with_overrides()
