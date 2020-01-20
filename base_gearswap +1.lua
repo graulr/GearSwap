@@ -692,7 +692,7 @@ function initialize_setup()
     status_effect_map = get_default_status_effect_map()
     macro_setup()
 
-    -- Equip status on zone change (handles death)
+    -- Equip idle on zone change (handles death)
     windower.register_event('zone change', function()
         equip_with_overrides(sets.Idle)
     end)
