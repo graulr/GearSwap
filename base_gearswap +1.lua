@@ -136,15 +136,15 @@ function get_sets()
     -- Specific abilities:
     sets.midcast.Provoke = set_combine(ABILITY, {})
 
+    -- Corsair Quickdraw (will swap for all versions of Quickdraw)
+    sets.midcast.Quickdraw = {}
+
 
     ---------------------------------------------------------------------------------------
     --                                    Ranged Attack                                  --
     ---------------------------------------------------------------------------------------
     sets.midcast["Ranged Attack"] = set_combine(ENGAGED_SET, {})
     RANGED_ATTACK = sets.midcast["Ranged Attack"]
-
-    -- Corsair Quickdraw (will swap for all versions of Quickdraw)
-    sets.midcast.Quickdraw = {}
 
 
     ---------------------------------------------------------------------------------------
@@ -556,32 +556,26 @@ end
 
 function buff_change(buff, gain, details)
     current_set = {}
+    buff = string.lower(buff)
 
-    if (gain == true) then
-        buff = string.lower(buff)
-        if (buff == "blind" or
-            buff == "flash" or
-            buff == "accuracy down") then
-            current_set = sets.Blind
-        elseif (buff == "doom") then
-            current_set = sets.Doom
-        elseif (buff == "paralyze") then
-            current_set = sets.Paralyze
-        elseif (buff == "poison") then
-            current_set = sets.Poison
-        elseif (buff == "silence") then
-            current_set = sets.Silence
-        elseif (buff == "sleep") then
-            current_set = sets.Sleep
-        elseif (buff == "slow") then
-            current_set = sets.Slow
-        elseif (buff == "attack down") then
-            current_set = sets.Attack_Down
+    if has_key(status_effect_map, buff) then
+        buff_map = status_effect_map[buff]
+        -- Status was gained
+        if gain == true then
+            if buff_map["is_effect_on"] == false then
+                buff_map["is_effect_on"] = true
+                if not (buff_map["set"] == {}) then
+                    equip_status_with_overrides(buff_map["set"])
+                end
+            end
+        -- Status was lost
+        elseif buff_map["is_effect_on"] == true then
+            buff_map["is_effect_on"] = false
+            if not (buff_map["set"] == {}) then
+                equip_status_with_overrides()
+            end
         end
-    else
-        equip_status_with_overrides()
     end
-    equip_status_with_overrides(current_set)
 end
 
 function sub_job_change(new, old)
@@ -695,6 +689,7 @@ function initialize_setup()
     alternate_override = 0
     toggle_overrides.keep_gear = keep_gear_until_next_event
     stored_macro_map = nil
+    status_effect_map = get_default_status_effect_map()
     macro_setup()
 end
 
@@ -733,6 +728,23 @@ function get_default_toggle_override_map()
         defensive=false,
         magic_burst=false,
         keep_gear=false
+    }
+end
+
+
+-- Get a new status effect map with all is_effect_on initialized to false
+function get_default_status_effect_map()
+    return {
+        blind={is_effect_on=false, set=sets.Blind},
+        flash={is_effect_on=false, set=sets.Blind},
+        accuracy_down={is_effect_on=false, set=sets.Blind},
+        doom={is_effect_on=false, set=sets.Doom},
+        slience={is_effect_on=false, set=sets.Silence},
+        slow={is_effect_on=false, set=sets.Slow},
+        sleep={is_effect_on=false, set=sets.Sleep},
+        paralyze={is_effect_on=false, set=sets.Paralyze},
+        poison={is_effect_on=false, set=sets.Poison},
+        attack_down={is_effect_on=false, set=sets.Attack_Down},
     }
 end
 
@@ -937,6 +949,13 @@ function combine_overrides(gearset)
         gearset = set_combine(gearset, sets.ALTERNATE_5)
     end
 
+    -- Handle any status overrides
+    for _, buff_map in pairs(status_effect_map) do
+        if buff_map["is_effect_on"] == true then
+            gearset = set_combine(gearset, buff_map["set"])
+        end
+    end
+
     return gearset
 end
 
@@ -987,4 +1006,13 @@ function set_macro(macro_map)
             display_message("Setting current macros to book " .. book_num .. ", page " .. page_num)
         end
     end
+end
+
+function has_key(tab, key)
+    for table_key, map in pairs(tab) do
+        if table_key == key then
+            return true
+        end
+    end
+    return false
 end
