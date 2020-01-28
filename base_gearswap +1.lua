@@ -347,6 +347,20 @@ function get_sets()
 
     sets.Attack_Down = {}
 
+    sets.STR_Down = {}
+
+    sets.DEX_Down = {}
+
+    sets.VIT_Down = {}
+
+    sets.AGI_Down = {}
+
+    sets.INT_Down = {}
+
+    sets.MND_Down = {}
+
+    sets.CHR_Down = {}
+
 
     --===================================================================================--
     --                                                                                   --
@@ -736,21 +750,31 @@ function get_default_toggle_override_map()
     }
 end
 
-
 -- Get a new status effect map with all is_effect_on initialized to false
 function get_default_status_effect_map()
     return {
-        blind={is_effect_on=false, set=sets.Blind},
-        flash={is_effect_on=false, set=sets.Blind},
-        accuracy_down={is_effect_on=false, set=sets.Blind},
-        doom={is_effect_on=false, set=sets.Doom},
-        slience={is_effect_on=false, set=sets.Silence},
-        slow={is_effect_on=false, set=sets.Slow},
-        sleep={is_effect_on=false, set=sets.Sleep},
-        paralyze={is_effect_on=false, set=sets.Paralyze},
-        poison={is_effect_on=false, set=sets.Poison},
-        attack_down={is_effect_on=false, set=sets.Attack_Down},
+        blind=get_initial_status_effect_map_val(sets.Blind),
+        flash=get_initial_status_effect_map_val(sets.Blind),
+        accuracy_down=get_initial_status_effect_map_val(sets.Blind),
+        doom=get_initial_status_effect_map_val(sets.Doom),
+        slience=get_initial_status_effect_map_val(sets.Silence),
+        slow=get_initial_status_effect_map_val(sets.Slow),
+        sleep=get_initial_status_effect_map_val(sets.Sleep),
+        paralyze=get_initial_status_effect_map_val(sets.Paralyze),
+        poison=get_initial_status_effect_map_val(sets.Poison),
+        attack_down=get_initial_status_effect_map_val(sets.Attack_Down),
+        str_down=get_initial_status_effect_map_val(sets.STR_Down),
+        dex_down=get_initial_status_effect_map_val(sets.DEX_Down),
+        vit_down=get_initial_status_effect_map_val(sets.VIT_Down),
+        agi_down=get_initial_status_effect_map_val(sets.AGI_Down),
+        int_down=get_initial_status_effect_map_val(sets.INT_Down),
+        mnd_down=get_initial_status_effect_map_val(sets.MND_Down),
+        chr_down=get_initial_status_effect_map_val(sets.CHR_Down),
     }
+end
+
+function get_initial_status_effect_map_val(set)
+    return {is_effect_on=false, set=set}
 end
 
 -- Update toggle_override on a fresh map and display a message
